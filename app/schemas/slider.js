@@ -6,6 +6,17 @@ var schema = new mongoose.Schema({
     status: String,
     ordering: Number,
     price: Number,
+    content: String,
+    created: {
+        user_id: Number,
+        user_name: String,
+        time: Date,
+    },
+    modified: {
+        user_id: Number,
+        user_name: String,
+        time: Date,
+    },
 });
 
 module.exports = mongoose.model(databaseConfig.col_slider, schema );

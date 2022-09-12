@@ -9,6 +9,7 @@ const session = require('express-session');
 const flash = require('express-flash-notification');
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const pathConfig = require('./path');
 
@@ -25,7 +26,7 @@ global.__path_views     = __path_app + pathConfig.folder_views + '/';
 
 const systemConfig = require(__path_configs + 'system');
 const databaseConfig = require(__path_configs + 'database');
-console.log(__path_views);
+
 
 mongoose.connect(`mongodb+srv://${databaseConfig.username}:${databaseConfig.password}@cluster0.huacl.mongodb.net/test`);
 
@@ -63,6 +64,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Local variable
 app.locals.systemConfig = systemConfig;
+app.locals.moment=moment;
 
 // Setup router
 app.use(`/${systemConfig.prefixAdmin}`, require(__path_routers + 'backend/index'));

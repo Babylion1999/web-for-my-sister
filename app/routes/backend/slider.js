@@ -42,8 +42,10 @@ router.get('(/status/:status)?', async function(req, res, next) {
 		pagination.totalItems = data;
     console.log("data", data);
 	});
+	// mongoose
     SliderModel
 		.find(objWhere)
+		
     .skip((pagination.currentPage-1) * pagination.totalItemsPerPage)
 		.limit(pagination.totalItemsPerPage)
     .then((items)=>{
@@ -65,8 +67,15 @@ router.get('/change-status/:id/:status', (req, res, next) => {
 	let currentStatus	= ParamsHelpers.getParam(req.params, 'status', 'active'); 
 	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 
 	let status			= (currentStatus === "active") ? "inactive" : "active";
-	
-	SliderModel.updateOne({_id: id}, {status: status}, (err, result) => {
+	let data = { status:status,
+		modified:{
+			user_id: 0,
+			user_name: "0",
+			time: Date.now(),
+		},
+
+	};
+	SliderModel.updateOne({_id: id}, data, (err, result) => {
 		req.flash('success', notify.CHANGE_STATUS_SUCCESS, false);
 		res.redirect(linkIndex);
 	});
@@ -75,8 +84,15 @@ router.get('/change-status/:id/:status', (req, res, next) => {
 // Change status - Multi
 router.post('/change-status/:status', (req, res, next) => {
 	let currentStatus	= ParamsHelpers.getParam(req.params, 'status', 'active'); 
-	console.log(currentStatus);
-	SliderModel.updateMany({_id: {$in: req.body.cid }}, {status: currentStatus}, (err, result) => {
+	let data = { status:currentStatus,
+		modified:{
+			user_id: 0,
+			user_name: "0",
+			time: Date.now(),
+		},
+
+	};
+	SliderModel.updateMany({_id: {$in: req.body.cid }}, data, (err, result) => {
 		req.flash('success', util.format(notify.CHANGE_STATUS_MULTI_SUCCESS, result.n) , false);
 		res.redirect(linkIndex);
 	});
@@ -85,13 +101,29 @@ router.post('/change-status/:status', (req, res, next) => {
 router.post('/change-ordering', (req, res, next) => {
 	let cids 		= req.body.cid;
 	let orderings 	= req.body.ordering;
-	
+	console.log(orderings);
 	if(Array.isArray(cids)) {
 		cids.forEach((item, index) => {
-			SliderModel.updateOne({_id: item}, {ordering: parseInt(orderings[index])}, (err, result) => {});
+			let data = { ordering: parseInt(orderings[index]),
+				modified:{
+					user_id: 0,
+					user_name: "0",
+					time: Date.now(),
+				},
+		
+			};
+			SliderModel.updateOne({_id: item},data, (err, result) => {});
 		})
-	}else{ 
-		SliderModel.updateOne({_id: cids}, {ordering: parseInt(orderings)}, (err, result) => {});
+	}else{
+		let data = { ordering: parseInt(orderings[index]),
+			modified:{
+				user_id: 0,
+				user_name: "0",
+				time: Date.now(),
+			},
+	
+		}; 
+		SliderModel.updateOne({_id: cids}, data, (err, result) => {});
 	}
 
 	req.flash('success', notify.CHANGE_ORDERING_SUCCESS, false);
@@ -150,17 +182,29 @@ router.post('/save', (req, res, next) => {
 				ordering: parseInt(item.ordering),
 				name: item.name,
 				status: item.status,
-				price: item.price
+				price: item.price,
+				content: item.content,
+				modified:{
+					user_id: 0,
+					user_name: "0",
+					time: Date.now(),
+				},
 			}, (err, result) => {
 				req.flash('success', notify.EDIT_SUCCESS, false);
 				res.redirect(linkIndex);
 			});
 		}
 	}else { // add
+
 		console.log("add");
 		if(errors) { 
 			res.render(`${folderView}form`, { pageTitle: pageTitleAdd, item, errors});
 		}else {
+			item.created = {
+				user_id: 0,
+				user_name: "abc",
+				time: Date.now(),
+			},
 			new SliderModel(item).save().then(()=> {
 				req.flash('success', notify.ADD_SUCCESS, false);
 				res.redirect(linkIndex);

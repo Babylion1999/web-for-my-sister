@@ -3,6 +3,7 @@
 <% include ./../../helpers/pagination %>
 <% include ./../../helpers/status %>
 <% include ./../../helpers/highlight %>
+<% include ./../../helpers/source-by %>
 <% 
 	const collection = "slider";
 	const linkPrefix = systemConfig.prefixAdmin + `/${collection}/`;
@@ -68,12 +69,15 @@
 						<th class="text-center">Name</th>
 						<th class="text-center">Status</th>
 						<th class="text-center">Ordering</th>
+						<th class="text-center">Created</th>
+						<th class="text-center">Modified</th>
 						<th class="text-center">Action</th>
 						<th class="text-center">Price</th>
 					</tr>
 				</thead>
 				<tbody>
 					<% items.forEach( (item, index) => { %>
+						<h3><%= JSON.stringify(item) %></h3>
 						<% var x = item.price? item.price:0;
 						const pricex = x.toLocaleString('en-US', {style : 'currency', currency : 'VND'});
 						 %>
@@ -94,7 +98,15 @@
 							<td class="text-center">
 								<input type="number" value="<%= item.ordering %>" class="text-center ordering">
 							</td>
-							
+							<td  class="text-center">
+								
+
+								<%- sourceByHelper(item.created.user_name,moment(item.created.time).format(systemConfig.format_long_time)) %>
+							</td>
+							<td  class="text-center">
+								<%- sourceByHelper(item.modified.user_name,moment(item.modified.time).format(systemConfig.format_long_time)) %>
+								
+							</td>
 							<td class="text-center">
 								<a href="<%= linkPrefix %>form/<%= item.id %>" class="rounded-circle btn btn-sm btn-info" title="Edit">
 									<i class="fas fa-pencil-alt"></i>
