@@ -1,18 +1,18 @@
 var express = require('express');
 var router = express.Router();
 const util = require('util');
-const SliderModel 	= require(__path_schemas + 'slider');
-const ValidateSlider	= require(__path_validates + 'slider');
-const folderView	 = __path_views + 'pages/slider/';
+const GroupsModel 	= require(__path_schemas + 'groups');
+const ValidateGroups	= require(__path_validates + 'groups');
+const folderView	 = __path_views + 'pages/groups/';
 const notify  		= require(__path_configs + 'notify');
 const systemConfig  = require(__path_configs + 'system');
 const ParamsHelpers = require(__path_helpers + 'params');
-const UtilsHelpers 	= require(__path_helpers + 'utils-slider');
-const pageTitleIndex = 'Item Management';
+const UtilsHelpers 	= require(__path_helpers + 'utils-groups');
+const pageTitleIndex = 'Groups Management';
 const pageTitleAdd   = pageTitleIndex + ' - Add';
 const pageTitleEdit  = pageTitleIndex + ' - Edit';
 
-const linkIndex		 = '/' + systemConfig.prefixAdmin + '/slider/';
+const linkIndex		 = '/' + systemConfig.prefixAdmin + '/groups/';
 
 // List items
 
@@ -38,18 +38,18 @@ router.get('(/status/:status)?', async function(req, res, next) {
 
 
 
-  await SliderModel.count(objWhere).then( (data) => {
+  await GroupsModel.count(objWhere).then( (data) => {
 		pagination.totalItems = data;
     console.log("data", data);
 	});
 	// mongoose
-    SliderModel
+    GroupsModel
 		.find(objWhere)
 		
     .skip((pagination.currentPage-1) * pagination.totalItemsPerPage)
 		.limit(pagination.totalItemsPerPage)
     .then((items)=>{
-      res.render(`${folderView}list`, { pageTitle   : 'SliderPage ',
+      res.render(`${folderView}list`, { pageTitle   : 'GroupsPage ',
       massage: title,
       items,
       keyword,
@@ -75,8 +75,27 @@ router.get('/change-status/:id/:status', (req, res, next) => {
 		},
 
 	};
-	SliderModel.updateOne({_id: id}, data, (err, result) => {
+	GroupsModel.updateOne({_id: id}, data, (err, result) => {
 		req.flash('success', notify.CHANGE_STATUS_SUCCESS, false);
+		res.redirect(linkIndex);
+	});
+});
+
+// Change status
+router.get('/change-group_acp/:id/:group_acp', (req, res, next) => {
+	let currentGroup_acp	= ParamsHelpers.getParam(req.params, 'group_acp', 'yes'); 
+	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 
+	let group_acp			= (currentGroup_acp === "yes") ? "no" : "yes";
+	let data = { group_acp:group_acp,
+		modified:{
+			user_id: 0,
+			user_name: "admin",
+			time: Date.now(),
+		},
+
+	};
+	GroupsModel.updateOne({_id: id}, data, (err, result) => {
+		req.flash('success', notify.CHANGE_GROUP_ACP_SUCCESS, false);
 		res.redirect(linkIndex);
 	});
 });
@@ -92,7 +111,7 @@ router.post('/change-status/:status', (req, res, next) => {
 		},
 
 	};
-	SliderModel.updateMany({_id: {$in: req.body.cid }}, data, (err, result) => {
+	GroupsModel.updateMany({_id: {$in: req.body.cid }}, data, (err, result) => {
 		req.flash('success', util.format(notify.CHANGE_STATUS_MULTI_SUCCESS, result.n) , false);
 		res.redirect(linkIndex);
 	});
@@ -101,8 +120,8 @@ router.post('/change-status/:status', (req, res, next) => {
 router.post('/change-ordering', (req, res, next) => {
 	let cids 		= req.body.cid;
 	let orderings 	= req.body.ordering;
-	console.log(cids);
- 	if(Array.isArray(cids)) {
+	console.log(orderings);
+	if(Array.isArray(cids)) {
 		cids.forEach((item, index) => {
 			let data = { ordering: parseInt(orderings[index]),
 				modified:{
@@ -112,7 +131,7 @@ router.post('/change-ordering', (req, res, next) => {
 				},
 		
 			};
-			SliderModel.updateOne({_id: item},data, (err, result) => {});
+			GroupsModel.updateOne({_id: item},data, (err, result) => {});
 		})
 	}else{
 		let data = { ordering: parseInt(orderings),
@@ -123,23 +142,23 @@ router.post('/change-ordering', (req, res, next) => {
 			},
 	
 		}; 
-		SliderModel.updateOne({_id: cids}, data, (err, result) => {});
+		GroupsModel.updateOne({_id: cids}, data, (err, result) => {});
 	}
 
 	req.flash('success', notify.CHANGE_ORDERING_SUCCESS, false);
-res.redirect(linkIndex);
+	res.redirect(linkIndex);
 });
 // Delete
 router.get('/delete/:id', (req, res, next) => {
 	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 	
-	SliderModel.deleteOne({_id: id}, (err, result) => {
+	GroupsModel.deleteOne({_id: id}, (err, result) => {
 		req.flash('success', notify.DELETE_SUCCESS, false);
 		res.redirect(linkIndex);
 	});
 });
 // Delete - Multi
 router.post('/delete', (req, res, next) => {
-	SliderModel.remove({_id: {$in: req.body.cid }}, (err, result) => {
+	GroupsModel.remove({_id: {$in: req.body.cid }}, (err, result) => {
 		req.flash('success', util.format(notify.DELETE_MULTI_SUCCESS, result.n), false);
 		res.redirect(linkIndex);
 	});
@@ -155,10 +174,11 @@ router.get(('/form(/:id)?'), (req, res, next) => {
 	if(id === '') { // ADD
 		console.log(1);
 		res.render(`${folderView}form`, { pageTitle: pageTitleAdd, item, errors});
+        
 		
 	}else { // EDIT
 		console.log(2);
-		SliderModel.findById(id, (err, item) =>{
+		GroupsModel.findById(id, (err, item) =>{
 			console.log(2);
 			res.render(`${folderView}form`, { pageTitle: pageTitleEdit, item, errors});
 		});	
@@ -168,7 +188,7 @@ router.get(('/form(/:id)?'), (req, res, next) => {
 // SAVE = ADD EDIT
 router.post('/save', (req, res, next) => {
 	req.body = JSON.parse(JSON.stringify(req.body));
-	ValidateSlider.validator(req);
+	ValidateGroups.validator(req);
 
 	let item = Object.assign(req.body);
 	let errors = req.validationErrors();
@@ -178,12 +198,13 @@ router.post('/save', (req, res, next) => {
 		if(errors) { 
 			res.render(`${folderView}form`, { pageTitle: pageTitleEdit, item, errors});
 		}else {
-			SliderModel.updateOne({_id: item.id}, {
+			GroupsModel.updateOne({_id: item.id}, {
 				ordering: parseInt(item.ordering),
 				name: item.name,
 				status: item.status,
 				price: item.price,
 				content: item.content,
+                group_acp: item.group_acp,
 				modified:{
 					user_id: 0,
 					user_name: "0",
@@ -205,7 +226,7 @@ router.post('/save', (req, res, next) => {
 				user_name: "abc",
 				time: Date.now(),
 			},
-			new SliderModel(item).save().then(()=> {
+			new GroupsModel(item).save().then(()=> {
 				req.flash('success', notify.ADD_SUCCESS, false);
 				res.redirect(linkIndex);
 			})

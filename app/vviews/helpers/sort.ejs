@@ -1,0 +1,17 @@
+<% 
+    sortHelper = (collection, name,sortField, sortType,  sortTypeCurrent) => { 
+        let order = (sortTypeCurrent =="asc") ? 'desc' : 'asc';
+        let icon = (order =="asc") ? 'down-alt' : 'down';
+        let xhtmlResult = '';
+       let link = systemConfig.prefixAdmin + '/' + collection + '/sort/'+ sortField +'/' + order;
+        xhtmlResult += `<th class="text-center"><a href="${link}">Ordering <i class="fas fa-sort-numeric-${icon}"></i></a></th> `;
+        return xhtmlResult;
+    } 
+%>
+
+
+
+
+
+
+

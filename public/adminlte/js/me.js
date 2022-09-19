@@ -1,15 +1,17 @@
 
-    ClassicEditor
-        .create( document.querySelector( '#editor' ) )
-        .catch( error => {
-            console.error( error );
-        } );
-
+    
 
 $(document).ready(function () {
     var ckbAll = $(".cbAll");
     var fmAdmin = $("#zt-form");
 
+    ClassicEditor
+    .create( document.querySelector( '#id_content' ) )
+    .then( editor => {
+        editor.model.document.on('change:data', () => {
+            $('input#id_content').val(editor.getData());
+        });
+    } )
     // CKEDITOR
     if ($('textarea#content_ck').length) {
         CKEDITOR.replace('content_ck');
@@ -119,30 +121,55 @@ $(document).ready(function () {
         $(close_btn_selector).on('click', function(){
             $(this).parent().css({'display':'none'});
         })    
-    }
-});
- deleteItem=(link)=>{
+    };
+    //sweeet alert
+    deleteItem=(link)=>{
     
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-        
-      }).then((result) => {
-       console.log(result.value);
-        if (result.value) {
-             window.location=link;
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
             
-            console.log("1");
-          Swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
-            'success'
-          )
-        }
-      })
- }
+          }).then((result) => {
+           console.log(result.value);
+            if (result.value) {
+                 window.location=link;
+                
+                console.log("1");
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+            }
+          })
+    
+    
+          
+     };
+
+    //
+    $('select[name="group_id"]').change(function(){
+        $('input[name="group_name"]').val($(this).find('option:selected').text());
+    
+    });
+    $('select[name="filter-group"]').change(function(){
+        var path = window.location.pathname.split('/');
+        var linkRedirect = "/" + path[1] + "/" + path[2] + '/filter-group/' + $(this).val();
+       
+            window.location.pathname =linkRedirect;
+           
+     
+        
+        
+       
+    
+    });
+
+
+});
+ 

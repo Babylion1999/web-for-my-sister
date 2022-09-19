@@ -1,0 +1,17 @@
+<% 
+    group_acpHelper = (linkPrefix, value, id) => {
+        let xhtmlValue = '';
+        let link       = linkPrefix + 'change-group_acp/' + id + '/' + value ;
+        if(value === "yes") {
+            xhtmlValue = 'fas';
+        }else if (value === "no") {
+            xhtmlValue = 'far';
+        }
+
+        return `<a href="${link}" class=" btn btn-sm "><i class="${xhtmlValue} fa-check-square" style="color: #28A745; font-size: 20px;"></i></a>`;
+    }
+%>
+
+
+
+

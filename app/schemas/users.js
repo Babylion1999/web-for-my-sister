@@ -7,7 +7,10 @@ var schema = new mongoose.Schema({
     ordering: Number,
     price: Number,
     content: String,
-   
+    group:{
+        id: String,
+        name: String,
+    },
     created: {
         user_id: Number,
         user_name: String,
@@ -18,6 +21,7 @@ var schema = new mongoose.Schema({
         user_name: String,
         time: Date,
     },
+    
 });
 
-module.exports = mongoose.model(databaseConfig.col_slider, schema );
+module.exports = mongoose.model(databaseConfig.col_users, schema );

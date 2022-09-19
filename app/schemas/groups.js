@@ -7,7 +7,7 @@ var schema = new mongoose.Schema({
     ordering: Number,
     price: Number,
     content: String,
-   
+    group_acp: String,
     created: {
         user_id: Number,
         user_name: String,
@@ -20,4 +20,4 @@ var schema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model(databaseConfig.col_slider, schema );
+module.exports = mongoose.model(databaseConfig.col_groups, schema );

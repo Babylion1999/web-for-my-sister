@@ -5,6 +5,8 @@ router.use('/', require('./home'));
 router.use('/dashboard', require('./dashboard'));
 router.use('/items', require('./items'));
 router.use('/slider', require('./slider'));
+router.use('/groups', require('./groups'));
+router.use('/users', require('./users'));
 
 
 module.exports = router;

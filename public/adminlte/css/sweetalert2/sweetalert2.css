@@ -282,11 +282,12 @@
 }
 
 .swal2-actions {
+  text-align: center;
   display: flex;
   z-index: 1;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
   margin: 1.25em auto 0;
 }
