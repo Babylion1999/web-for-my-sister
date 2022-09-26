@@ -1,8 +1,22 @@
 
-
+    
 
 $(document).ready(function () {
+    //
 
+
+function removeUpload() {
+  $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+  $('.file-upload-content').hide();
+  $('.image-upload-wrap').show();
+}
+$('.image-upload-wrap').bind('dragover', function () {
+		$('.image-upload-wrap').addClass('image-dropping');
+	});
+	$('.image-upload-wrap').bind('dragleave', function () {
+		$('.image-upload-wrap').removeClass('image-dropping');
+});
+    //
     var ckbAll = $(".cbAll");
     //check all
     ckbAll.click(function () {
@@ -273,6 +287,7 @@ $(document).ready(function () {
         link += `filter_ishome=${$(this).val()}`;
         window.location.href = link;
     });
+    
 });
 
 const Toast = Swal.mixin({

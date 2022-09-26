@@ -7,6 +7,7 @@ router.use('/items', require('./items'));
 router.use('/slider', require('./slider'));
 router.use('/groups', require('./groups'));
 router.use('/users', require('./users'));
+router.use('/categories', require('./categories'));
 
 
 module.exports = router;

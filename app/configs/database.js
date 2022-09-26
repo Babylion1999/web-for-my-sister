@@ -7,4 +7,5 @@ module.exports = {
     col_slider: 'slider',
     col_groups: 'groups',
     col_users: 'users',
+    col_categories: 'categories',
 };

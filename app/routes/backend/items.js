@@ -1,159 +1,205 @@
 var express = require('express');
-var router 	= express.Router();
+var router = express.Router();
 const util = require('util');
-
-const systemConfig  = require(__path_configs + 'system');
+const changeName = "items";
+const ItemsModel 	= require(__path_services + `backend/${changeName}`);
+const CategoriesModel = require(__path_services + `backend/categories`);
+const ValidateItems	= require(__path_validates + `${changeName}`);
+const folderView	 = __path_views + `pages/${changeName}/`;
 const notify  		= require(__path_configs + 'notify');
-const ItemsModel 	= require(__path_schemas + 'items');
-const ValidateItems	= require(__path_validates + 'items');
-const UtilsHelpers 	= require(__path_helpers + 'utils-items');
+const systemConfig  = require(__path_configs + 'system');
 const ParamsHelpers = require(__path_helpers + 'params');
-
-const linkIndex		 = '/' + systemConfig.prefixAdmin + '/items/';
+const UtilsHelpers 	= require(__path_helpers + `utils-${changeName}`);
 const pageTitleIndex = 'Item Management';
 const pageTitleAdd   = pageTitleIndex + ' - Add';
 const pageTitleEdit  = pageTitleIndex + ' - Edit';
-const folderView	 = __path_views + 'pages/items/';
+
+const linkIndex		 = '/' + systemConfig.prefixAdmin + `/${changeName}/`;
 
 // List items
-router.get('(/status/:status)?', async (req, res, next) => {
-	let objWhere	 = {};
-	let keyword		 = ParamsHelpers.getParam(req.query, 'keyword', '');
-	let currentStatus= ParamsHelpers.getParam(req.params, 'status', 'all'); 
-	let statusFilter = await UtilsHelpers.createFilterStatus(currentStatus);
 
-	let pagination 	 = {
+/* GET home page. */
+router.get('(/status/:status)?', async function(req, res, next) {
+  let objWhere	 = {};
+  
+  let keyword		 = ParamsHelpers.getParam(req.query, 'keyword', '');
+	let currentStatus= ParamsHelpers.getParam(req.params, 'status', 'all'); 
+  let statusFilter = await UtilsHelpers.createFilterStatus(currentStatus);
+  let sortField = ParamsHelpers.getParam(req.session, 'sort_field', 'ordering');
+  let sortType = ParamsHelpers.getParam(req.session, 'sort_type', 'asc');
+  let categoryID = ParamsHelpers.getParam(req.session, 'category_id', '');
+	let sort = {};
+	sort[sortField] = sortType;
+  let title= req.query.title;
+  let pagination 	 = {
 		totalItems		 : 1,
-		totalItemsPerPage: 4,
+		totalItemsPerPage: 3,
 		currentPage		 : parseInt(ParamsHelpers.getParam(req.query, 'page', 1)),
 		pageRanges		 : 3
 	};
 
-	if(currentStatus !== 'all') objWhere.status = currentStatus;
-	if(keyword !== '') objWhere.name = new RegExp(keyword, 'i');
-
-	await ItemsModel.count(objWhere).then( (data) => {
-		pagination.totalItems = data;
+	let categoryItems=[];
+	await CategoriesModel.listItemsSelectBox().then((item)=>{
+		categoryItems=item;
+	 	categoryItems.unshift({_id:'allvalue',name:'Choose category'})
 	});
-	// ordering: 'asc'
-	ItemsModel
-		.find(objWhere)
-		.sort({ordering: 'asc'})
-		.skip((pagination.currentPage-1) * pagination.totalItemsPerPage)
-		.limit(pagination.totalItemsPerPage)
-		.then( (items) => {
-			res.render(`${folderView}list`, { 
-				pageTitle: pageTitleIndex,
-				items,
-				statusFilter,
-				pagination,
-				currentStatus,
-				keyword
-			});
-		});
+	
+	
+	if(categoryID !== '') objWhere = {'category.id': categoryID};
+	if(categoryID == 'allvalue') objWhere = {};	
+    if(currentStatus !== 'all') objWhere.status = currentStatus;
+	if(keyword !== '') objWhere.name = new RegExp(keyword, 'i');
+	
+	ItemsModel.listItems(objWhere,pagination,categoryItems,sort,categoryID).then((items)=>{
+		console.log(categoryID);
+		res.render(`${folderView}list`, { pageTitle   : 'itemsPage ',
+      massage: title,
+      items,
+      keyword,
+      currentStatus,
+      statusFilter,
+      pagination,
+	  categoryItems,
+	  sortField,
+	  sortType,
+	  categoryID,
+    });
+	});
 });
-
 // Change status
 router.get('/change-status/:id/:status', (req, res, next) => {
 	let currentStatus	= ParamsHelpers.getParam(req.params, 'status', 'active'); 
 	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 
 	let status			= (currentStatus === "active") ? "inactive" : "active";
-	
-	ItemsModel.updateOne({_id: id}, {status: status}, (err, result) => {
+	let data = { status:status,
+		modified:{
+			user_id: 0,
+			user_name: "0",
+			time: Date.now(),
+		},
+
+	};
+	ItemsModel.changeStatus(id,data).then((result)=>{
 		req.flash('success', notify.CHANGE_STATUS_SUCCESS, false);
 		res.redirect(linkIndex);
+	})
 	});
-});
 
 // Change status - Multi
 router.post('/change-status/:status', (req, res, next) => {
 	let currentStatus	= ParamsHelpers.getParam(req.params, 'status', 'active'); 
-	ItemsModel.updateMany({_id: {$in: req.body.cid }}, {status: currentStatus}, (err, result) => {
+	let data = { status:currentStatus,
+		modified:{
+			user_id: 0,
+			user_name: "0",
+			time: Date.now(),
+		},
+
+	};
+	
+	ItemsModel.changeStatusMulti({$in: req.body.cid },data).then((result)=>{
 		req.flash('success', util.format(notify.CHANGE_STATUS_MULTI_SUCCESS, result.n) , false);
 		res.redirect(linkIndex);
 	});
 });
-
 // Change ordering - Multi
 router.post('/change-ordering', (req, res, next) => {
 	let cids 		= req.body.cid;
 	let orderings 	= req.body.ordering;
 	
-	if(Array.isArray(cids)) {
-		cids.forEach((item, index) => {
-			ItemsModel.updateOne({_id: item}, {ordering: parseInt(orderings[index])}, (err, result) => {});
-		})
-	}else{ 
-		ItemsModel.updateOne({_id: cids}, {ordering: parseInt(orderings)}, (err, result) => {});
-	}
-
-	req.flash('success', notify.CHANGE_ORDERING_SUCCESS, false);
-	res.redirect(linkIndex);
+	
+	ItemsModel.changeOrdering(orderings,cids,null).then((result)=>{
+		req.flash('success', notify.CHANGE_ORDERING_SUCCESS, false);
+		res.redirect(linkIndex);
+	});
 });
-
 // Delete
 router.get('/delete/:id', (req, res, next) => {
 	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 	
-	ItemsModel.deleteOne({_id: id}, (err, result) => {
+	
+	ItemsModel.delete(id).then((result)=>{
 		req.flash('success', notify.DELETE_SUCCESS, false);
 		res.redirect(linkIndex);
 	});
 });
-
 // Delete - Multi
 router.post('/delete', (req, res, next) => {
-	ItemsModel.remove({_id: {$in: req.body.cid }}, (err, result) => {
+	ItemsModel.deleteMulti({$in: req.body.cid }).then((result)=>{
 		req.flash('success', util.format(notify.DELETE_MULTI_SUCCESS, result.n), false);
 		res.redirect(linkIndex);
 	});
 });
 
 // FORM
-router.get(('/form(/:id)?'), (req, res, next) => {
+router.get(('/form(/:id)?'), async(req, res, next) => {
+	
 	let id		= ParamsHelpers.getParam(req.params, 'id', '');
-	let item	= {name: '', ordering: 0, status: 'novalue',price: 0};
+	let item	= {name: '', ordering: 0, status: 'novalue', price:0};
 	let errors   = null;
-	console.log(id+"123");
+	let categoryItems=[];
+	await CategoriesModel.listItemsSelectBox().then((item)=>{
+		categoryItems=item;
+		categoryItems.unshift({_id:'novalue',name:'Choose category'})
+	});
+	
+	
 	if(id === '') { // ADD
-		res.render(`${folderView}form`, { pageTitle: pageTitleAdd, item, errors});
+		console.log(item);
+		res.render(`${folderView}form`, {categoryItems, pageTitle: pageTitleAdd, item, errors});
+		
 	}else { // EDIT
-		ItemsModel.findById(id, (err, item) =>{
-			res.render(`${folderView}form`, { pageTitle: pageTitleEdit, item, errors});
-		});	
+		ItemsModel.form(id).then((item)=>{
+			item.category_id = item.category.id;
+			item.category_name = item.category.name;
+			console.log(item);
+			res.render(`${folderView}form`, {categoryItems, pageTitle: pageTitleEdit, item, errors});
+		});
+		
 	}
 });
 
 // SAVE = ADD EDIT
-router.post('/save', (req, res, next) => {
+router.post('/save', async(req, res, next) => {
 	req.body = JSON.parse(JSON.stringify(req.body));
 	ValidateItems.validator(req);
 
 	let item = Object.assign(req.body);
 	let errors = req.validationErrors();
-	console.log(item);
-	if(typeof item !== "undefined" && item.id !== "" ){	// edit
+	let taskCurrent = (typeof item !== "undefined" && item.id !== "") ? "edit" : "add";
 		if(errors) { 
-			res.render(`${folderView}form`, { pageTitle: pageTitleEdit, item, errors});
-		}else {
-			ItemsModel.updateOne({_id: item.id}, {
-				ordering: parseInt(item.ordering),
-				name: item.name,
-				status: item.status
-			}, (err, result) => {
-				req.flash('success', notify.EDIT_SUCCESS, false);
+			let categoryItems=[];
+			let pageTitle=(taskCurrent=="edit") ? pageTitleEdit : pageTitleAdd;
+			await CategoriesModel.listItemsSelectBox().then((item)=>{
+				categoryItems=item;
+				categoryItems.unshift({_id:'',name:'Choose category'});
+			});
+			
+			res.render(`${folderView}form`, { pageTitle, item, errors,categoryItems});
+		}else{
+			let massage= (taskCurrent=="edit") ? notify.EDIT_SUCCESS : notify.ADD_SUCCESS;
+			ItemsModel.saveItems(item,{task:taskCurrent}).then((result)=>{
+				req.flash('success', massage, false);
 				res.redirect(linkIndex);
 			});
 		}
-	}else { // add
-		if(errors) { 
-			res.render(`${folderView}form`, { pageTitle: pageTitleAdd, item, errors});
-		}else {
-			new ItemsModel(item).save().then(()=> {
-				req.flash('success', notify.ADD_SUCCESS, false);
-				res.redirect(linkIndex);
-			})
-		}
-	}	
+			
 });
 
+//SORT
+router.get(('/sort/:sort_field/:sort_type'), async(req, res, next) => {
+	
+	req.session.sort_field		= ParamsHelpers.getParam(req.params, 'sort_field', 'ordering');
+	req.session.sort_type		= ParamsHelpers.getParam(req.params, 'sort_type', 'esc');
+	
+	res.redirect(linkIndex);
+});
+module.exports = router;
+//category
+router.get(('/filter-category/:category_id'), async(req, res, next) => {
+	
+	req.session.category_id		= ParamsHelpers.getParam(req.params, 'category_id', '');
+	
+	// console.log(req.session);
+	res.redirect(linkIndex);
+});
 module.exports = router;

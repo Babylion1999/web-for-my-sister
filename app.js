@@ -16,10 +16,12 @@ const pathConfig = require('./path');
 // Define Path
 global.__base           = __dirname + '/';
 global.__path_app       = __base + pathConfig.folder_app + '/';
+global.__path_public    = __base + pathConfig.folder_public + '/';
 global.__path_configs   = __path_app + pathConfig.folder_configs + '/';
 global.__path_helpers   = __path_app + pathConfig.folder_helpers + '/';
 global.__path_routers   = __path_app + pathConfig.folder_routers + '/';
 global.__path_schemas   = __path_app + pathConfig.folder_schemas + '/';
+global.__path_services   = __path_app + pathConfig.folder_services + '/';
 global.__path_validates = __path_app + pathConfig.folder_validates + '/';
 global.__path_views     = __path_app + pathConfig.folder_views + '/';
 
