@@ -1,7 +1,9 @@
 const { options } = require("mongoose");
+const fs = require('fs');
 
 const UsersModel 	= require(__path_schemas + 'users');
 const GroupsModel 	= require(__path_schemas + 'groups');
+const removeHelper 	= require(__path_helpers + 'upload');
 module.exports = {
     listItems:async(objWhere,pagination,groupItems,sort,groupID)=>{   
         
@@ -22,7 +24,11 @@ module.exports = {
             .limit(pagination.totalItemsPerPage)
     
     },
+    getItem:(id)=>{
+        return UsersModel.findById(id)
+    },
     changeStatus:(id,data)=>{
+        
         return UsersModel.updateOne({_id: id}, data)
     },
     changeStatusMulti: (ids,data)=>{
@@ -47,10 +53,37 @@ module.exports = {
             return UsersModel.updateOne({_id: cids}, data);
         };
     },
-    delete: (id)=>{
+    delete:  async(id)=>{
+        await UsersModel.findById(id).then((item)=>{
+                let path='public/adminlte/images/'+item.avatar;
+                // removeHelper.removeImg(path);
+            if(fs.existsSync(path))
+            fs.unlink(path, (err) => {
+                        if (err) throw err;
+                        console.log('successfully deleted /tmp/hello');
+                      });
+        });
+       
         return UsersModel.deleteOne({_id: id})
     },
-    deleteMulti: (cids)=>{
+    deleteMulti: async(cids)=>{
+        console.log(cids);
+        if(Array.isArray(cids)){
+            for (let index = 0; index < cids.$in.length; index++) {
+            
+                await UsersModel.findById(cids.$in[index]).then((item)=>{
+                    let path='public/adminlte/images/'+item.avatar;
+                    removeHelper.removeImg(path);            
+                });
+            }
+        }else{
+            await UsersModel.findById(cids.$in).then((item)=>{
+                let path='public/adminlte/images/'+item.avatar;
+                removeHelper.removeImg(path);        
+            });
+        }
+        
+      
         return UsersModel.remove({_id: cids})
     },
     form: (id, options=null)=>{
@@ -58,6 +91,7 @@ module.exports = {
     },
     saveItems: (item,options=null)=>{
         if(options.task=='add'){
+            
             item.created = {
 				user_id: 0,
 				user_name: "abc",
@@ -76,6 +110,7 @@ module.exports = {
 				status: item.status,
 				price: item.price,
 				content: item.content,
+                avatar: item.avatar,
 				modified:{
 					user_id: 0,
 					user_name: "0",

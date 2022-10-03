@@ -2,10 +2,10 @@ var express = require('express');
 var router = express.Router();
 const util = require('util');
 const changeName = "items";
-const ItemsModel 	= require(__path_services + `backend/${changeName}`);
+const MainModel 	= require(__path_services + `backend/${changeName}`);
 const CategoriesModel = require(__path_services + `backend/categories`);
 const ValidateItems	= require(__path_validates + `${changeName}`);
-const folderView	 = __path_views + `pages/${changeName}/`;
+const folderView	 = __path_views_admin + `pages/${changeName}/`;
 const notify  		= require(__path_configs + 'notify');
 const systemConfig  = require(__path_configs + 'system');
 const ParamsHelpers = require(__path_helpers + 'params');
@@ -50,7 +50,7 @@ router.get('(/status/:status)?', async function(req, res, next) {
     if(currentStatus !== 'all') objWhere.status = currentStatus;
 	if(keyword !== '') objWhere.name = new RegExp(keyword, 'i');
 	
-	ItemsModel.listItems(objWhere,pagination,categoryItems,sort,categoryID).then((items)=>{
+	MainModel.listItems(objWhere,pagination,categoryItems,sort,categoryID).then((items)=>{
 		console.log(categoryID);
 		res.render(`${folderView}list`, { pageTitle   : 'itemsPage ',
       massage: title,
@@ -79,7 +79,7 @@ router.get('/change-status/:id/:status', (req, res, next) => {
 		},
 
 	};
-	ItemsModel.changeStatus(id,data).then((result)=>{
+	MainModel.changeStatus(id,data).then((result)=>{
 		req.flash('success', notify.CHANGE_STATUS_SUCCESS, false);
 		res.redirect(linkIndex);
 	})
@@ -97,7 +97,7 @@ router.post('/change-status/:status', (req, res, next) => {
 
 	};
 	
-	ItemsModel.changeStatusMulti({$in: req.body.cid },data).then((result)=>{
+	MainModel.changeStatusMulti({$in: req.body.cid },data).then((result)=>{
 		req.flash('success', util.format(notify.CHANGE_STATUS_MULTI_SUCCESS, result.n) , false);
 		res.redirect(linkIndex);
 	});
@@ -108,7 +108,7 @@ router.post('/change-ordering', (req, res, next) => {
 	let orderings 	= req.body.ordering;
 	
 	
-	ItemsModel.changeOrdering(orderings,cids,null).then((result)=>{
+	MainModel.changeOrdering(orderings,cids,null).then((result)=>{
 		req.flash('success', notify.CHANGE_ORDERING_SUCCESS, false);
 		res.redirect(linkIndex);
 	});
@@ -117,14 +117,14 @@ router.post('/change-ordering', (req, res, next) => {
 router.get('/delete/:id', (req, res, next) => {
 	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 	
 	
-	ItemsModel.delete(id).then((result)=>{
+	MainModel.delete(id).then((result)=>{
 		req.flash('success', notify.DELETE_SUCCESS, false);
 		res.redirect(linkIndex);
 	});
 });
 // Delete - Multi
 router.post('/delete', (req, res, next) => {
-	ItemsModel.deleteMulti({$in: req.body.cid }).then((result)=>{
+	MainModel.deleteMulti({$in: req.body.cid }).then((result)=>{
 		req.flash('success', util.format(notify.DELETE_MULTI_SUCCESS, result.n), false);
 		res.redirect(linkIndex);
 	});
@@ -148,7 +148,7 @@ router.get(('/form(/:id)?'), async(req, res, next) => {
 		res.render(`${folderView}form`, {categoryItems, pageTitle: pageTitleAdd, item, errors});
 		
 	}else { // EDIT
-		ItemsModel.form(id).then((item)=>{
+		MainModel.form(id).then((item)=>{
 			item.category_id = item.category.id;
 			item.category_name = item.category.name;
 			console.log(item);
@@ -177,7 +177,7 @@ router.post('/save', async(req, res, next) => {
 			res.render(`${folderView}form`, { pageTitle, item, errors,categoryItems});
 		}else{
 			let massage= (taskCurrent=="edit") ? notify.EDIT_SUCCESS : notify.ADD_SUCCESS;
-			ItemsModel.saveItems(item,{task:taskCurrent}).then((result)=>{
+			MainModel.saveItems(item,{task:taskCurrent}).then((result)=>{
 				req.flash('success', massage, false);
 				res.redirect(linkIndex);
 			});

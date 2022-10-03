@@ -1,0 +1,18 @@
+<% 
+    specialHelper = (linkPrefix, special, id) => {
+        let xhtmlClass = '';
+        let xhtmlName = '';
+        let link       = linkPrefix + 'change-special/' + id + '/' + special ;
+        if(special === "active") {
+            xhtmlClass = 'success';
+            xhtmlName = 'Special';
+        }else if (special === "inactive") {
+            xhtmlClass = 'warning';
+            xhtmlName = 'Nomal';
+        }
+
+        return `<a href="${link}"><span class="badge badge-${xhtmlClass}">${xhtmlName}</span></a>`;
+    }
+%>
+
+

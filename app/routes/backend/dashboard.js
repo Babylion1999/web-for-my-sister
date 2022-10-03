@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const folderView	 = __path_views + 'pages/dashboard/';
+const folderView	 = __path_views_admin + 'pages/dashboard/';
 const ItemsModel 	= require(__path_schemas + 'items');
 const SliderModel 	= require(__path_schemas + 'slider');
 

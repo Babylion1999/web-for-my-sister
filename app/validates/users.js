@@ -5,7 +5,7 @@ const options = {
     name: { min: 5, max: 30 },
     ordering: { min: 0, max: 100 },
     status: { value: 'novalue' },
-    group: { value: 'novalue' },
+    group: { value: 'allvalue' },
     content: { min: 5, max: 200 },
 }
 
@@ -28,5 +28,17 @@ module.exports = {
         // CONTENT
         // req.checkBody('content', util.format(notify.ERROR_NAME, options.content.min, options.content.max) )
         //     .isLength({ min: options.content.min, max: options.content.max })
-    }
+        // console.log(req.file);
+        // console.log(taskCurrent);
+        // let errors = req.validationErrors();
+        // if (errUpload) {
+        //     if(errUpload.code=='LIMIT_FILE_SIZE'){
+        //     errors.push({param: 'avatar',msg:notify.ERROR_FILE_LARGE})
+        //     }
+        //     errors.push({param: 'avatar',msg:errUpload})
+        // }else if(req.file==undefined && taskCurrent=="add"){
+        //     errors.push({param: 'avatar',msg:notify.ERROR_FILE_REQUIRE})
+        // }
+        // return errors
+         }
 }

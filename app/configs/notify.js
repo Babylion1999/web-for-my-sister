@@ -12,4 +12,7 @@ module.exports = {
     ERROR_STATUS: 'Phải là một giá trị khác rỗng',
     CHANGE_GROUP_ACP_SUCCESS: 'Cập nhật GROUP ACP thành công',
     ERROR_GROUP:'Phải là một giá trị khác rỗng',
+    ERROR_FILE_REQUIRE: 'Vui lòng chọn file upload',
+    ERROR_FILE_LARGE: 'File quá lớn',
+    CHANGE_SPECIAL_SUCCESS:'Cập nhật trạng thái bài viết thành công',
 };

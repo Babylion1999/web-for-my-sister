@@ -1,6 +1,7 @@
 var path = require('path');
 var multer = require('multer');
 var randomstring = require("randomstring");
+const fs = require('fs');
 
 let uploadImg = (id,savePath) => {
     let storage = multer.diskStorage({
@@ -14,7 +15,7 @@ let uploadImg = (id,savePath) => {
       
     let upload = multer({ storage: storage,
                             limits:{
-                                fileSize: 8 * 1024 * 1024,
+                                fileSize: 1 * 1024 * 1024,
                             },
                             fileFilter: function (req, file, cb) {
                                 const extension = path.extname(file.originalname).toLowerCase();
@@ -28,7 +29,7 @@ let uploadImg = (id,savePath) => {
                                     mimetyp !== 'image/jpg' &
                                     mimetyp !== 'image/jpeg'
                                 ) {
-                                    cb('It too large');
+                                    cb('Vui long upload file hop le');
                                 }
                                     return cb(null,true)
                             },
@@ -36,7 +37,16 @@ let uploadImg = (id,savePath) => {
 
 	return upload
 }
+removeImg=(path)=>{
+    if(fs.existsSync(path)){
+            fs.unlink(path, (err) => {
+                        if (err) throw err;
+                        console.log('successfully deleted /tmp/hello');
+                      });
+                    }
+}
 
 module.exports = {
-    uploadImg
+    uploadImg,
+    removeImg
 }

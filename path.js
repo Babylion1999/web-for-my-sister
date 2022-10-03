@@ -9,4 +9,6 @@ module.exports = {
     folder_views     : 'vviews',
     folder_services     : 'services',
     folder_public     : 'public',
+    folder_module_admin     : 'admin',
+    folder_module_blog: 'blog',
 };

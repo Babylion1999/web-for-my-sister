@@ -1,0 +1,14 @@
+<% 
+    imageHelper = (pathUpload,imgname) => {
+        
+        if(imgname == undefined || imgname == '') {
+            imgname = 'noImage.jpg';
+        }
+
+        return `<td class="text-center"><img style="width:100px; height: 100px;" src="${pathUpload +imgname}" alt=""></td>`;
+    }
+%>
+
+
+
+
