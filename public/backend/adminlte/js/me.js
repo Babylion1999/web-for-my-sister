@@ -9,11 +9,7 @@ $(document).ready(function () {
 
     ClassicEditor
     .create( document.querySelector( '#id_content' ) )
-    .then( editor => {
-        editor.model.document.on('change:data', () => {
-            $('input#id_content').val(editor.getData());
-        });
-    } )
+   
     // CKEDITOR
     if ($('textarea#content_ck').length) {
         CKEDITOR.replace('content_ck');
@@ -215,5 +211,70 @@ function ChangeToSlug()
     //In slug ra textbox có id “slug”
     document.getElementById('slug').value = slug;
 }
-
+const changeStatus = (link) =>{
+    $.ajax({
+        type: "get",
+        url: link,
+        dataType:"json", 
+        success: function(data){
+            console.log(data);
+            if(data.success){
+                let linkChange = 'admin/articles/change-status/' +data.id + '/' + data.status;
+                let classButton= data.status === 'active' ? 'btn-success' : 'btn-warning';
+                let statusHtml = $(`#status-${data.id}`);
+                $(statusHtml).html(`<a href="javascript:changeStatus('${linkChange}')" class="rounded-circle btn btn-sm ${classButton} alert-${data.id}"><i class="fas fa-check"></i></a>`);
+                	// String
+                $(`.alert-${data.id}`).notify(
+                        "Updated",      
+                        { position:"top",className:"success" }     
+                );
+                // Object
+            }
+        },
+       
+    });
+};
+const changeSpecial = (link) =>{
+    $.ajax({
+        type: "get",
+        url: link,
+        dataType:"json", 
+        success: function(data){
+            console.log(data);
+            if(data.success){
+                let linkChange = 'admin/articles/change-special/' +data.id + '/' + data.special;
+                let classButton= data.special === 'active' ? 'success' : 'warning';
+                let xhtmlName= data.special === 'active' ? 'special' : 'nomal';
+                let specialHtml = $(`#special-${data.id}`);
+                $(specialHtml).html(`<a href="javascript:changeSpecial('${linkChange}')"><span class="badge badge-${classButton} alert-special-${data.id}">${xhtmlName}</span></a>`);
+                	// String
+                $(`.alert-special-${data.id}`).notify(
+                        "Updated",      
+                        { position:"top",className:"success" }     
+                );
+                // Object
+            }
+        },
+       
+    });
+};
+const changeOrdering = (cid) =>{
+    let domOrdering= document.getElementById(`ordering-${cid}`);
+    domOrdering.classList.add(`alert-ordering-${cid}`);
+    let ordering = domOrdering.value;
+    $.ajax({
  
+        type: "post",
+        url: "admin/articles/change-ordering",
+        dataType:"json", 
+        data:{cid : cid,ordering : ordering},
+        success: function(resolve){
+            $(`.alert-ordering-${cid}`).notify(
+                "Updated",      
+                { position:"top",className:"success" }     
+        );
+        },
+       
+       
+    });
+}

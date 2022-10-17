@@ -3,6 +3,7 @@ const fs = require('fs');
 const MainModel 	= require(__path_schemas + 'articles');
 const CategoriesModel 	= require(__path_schemas + 'categories');
 const fileHelpers = require(__path_helpers + 'upload');
+const StringHelper 	= require(__path_helpers + 'string');
 module.exports = {
     listItems:async(objWhere,pagination,categoryItems,sort,categoryID)=>{   
         
@@ -22,6 +23,13 @@ module.exports = {
             .skip((pagination.currentPage-1) * pagination.totalItemsPerPage)
             .limit(pagination.totalItemsPerPage)
     
+    },
+    listItemsFrontend:(params = null, options = null)=>{
+        return MainModel
+            .find({status: 'active',special:'active'})
+            .select('name created category.name thumb')
+            .limit(9)
+            .sort({ordering:'asc'})
     },
     changeStatus:(id,data)=>{
         return MainModel.updateOne({_id: id}, data)
@@ -98,12 +106,14 @@ module.exports = {
 				id: item.category_id,
 				name: item.category_name,
 			}
+            item.slug = StringHelper.createAlias(item.slug)
             return new MainModel(item).save()
 
         }else if(options.task=='edit'){
             return MainModel.updateOne({_id: item.id}, {
 				ordering: parseInt(item.ordering),
 				name: item.name,
+                slug: StringHelper.createAlias(item.slug),
 				status: item.status,
                 special: item.special,
 				price: item.price,

@@ -1,0 +1,79 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+    <head>
+       <% include ./elements/head %>
+   </head>
+
+   <body>
+       
+    <!-- Preloader Start -->
+    <!-- <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="frontend/assets/img/logo/logo.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- Preloader Start -->
+
+   
+        <% include ./elements/header %>
+    
+
+    <main>
+    <!-- Trending Area Start -->
+    <% if(top_post== true){ %>
+        <% include ./elements/top_post %>
+    <% } %>
+                       
+    
+    <!-- Trending Area End -->
+    <!--   Weekly-News start -->
+    <% if(top_weeklyNews== true){ %>
+        <% include ./elements/top_weekly-news %>
+    <% } %>    
+    <!-- End Weekly-News -->
+     <!--================Blog Area =================-->
+     <section class="blog_area single-post-area section-padding">
+        <div class="container">
+           <div class="row">
+            <%- body %>
+            <% if(sildebarFilter== true){ %>
+                <% include ./elements/sildebar-filter %>
+            <% } %> 
+           </div>
+        </div>
+     </section>
+    <!--   Weekly2-News start -->
+    <% if(bottom_weeklyNews== true){ %>
+        <% include ./elements/bottom_weekly-news %>
+    <% } %>       
+    <!-- End Weekly-News -->
+    <!-- Start Youtube -->
+    <% if(youtubeArea== true){ %>
+        <% include ./elements/youtube-area %>
+    <% } %>  
+    <!-- End Start youtube -->
+    <!--  Recent Articles start -->
+    <% if(recentArticles== true){ %>
+        <% include ./elements/recent-articles %>
+    <% } %>     
+    <!--Recent Articles End -->
+    <!--Start pagination -->
+    <% if(paginationArea== true){ %>
+        <% include ./elements/pagination-area %>
+    <% } %>  
+    <!-- End pagination  -->
+    </main>
+    
+  <% include ./elements/footer %>
+   
+	<!-- JS here -->
+	
+		<% include ./elements/script %>
+        
+    </body>
+</html>

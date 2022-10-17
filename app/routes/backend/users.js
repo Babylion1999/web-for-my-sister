@@ -108,6 +108,7 @@ router.get('/change-status/:id/:status', (req, res, next) => {
 	})
 	});
 
+	
 // Change status - Multi
 router.post('/change-status/:status', (req, res, next) => {
 	let currentStatus	= ParamsHelpers.getParam(req.params, 'status', 'active'); 
@@ -183,22 +184,17 @@ router.get(('/form(/:id)?'), async(req, res, next) => {
 router.post('/save', (req, res, next) => {
 	uploadAvatar(req, res, async function(errUpload) {
 	req.body = JSON.parse(JSON.stringify(req.body));
-	console.log(req.body);
 	
 	let item = Object.assign(req.body);
 	let taskCurrent = (typeof item !== "undefined" && item.id !== "") ? "edit" : "add";
 	// let errors = ValidateUsers.validator(req,errUpload,taskCurrent);
 		ValidateUsers.validator(req);
 		let errors = req.validationErrors() !== false ? req.validationErrors() : [];
-	
-		
-		
-		
 		if (errUpload) {
 			// errors.push({param: 'avatar',msg:errUpload});
-			if(errUpload==='Vui long upload file hop le'){errors.push({param: 'avatar',msg:'file khong hop le'})}
-			if(errUpload.code=='LIMIT_FILE_SIZE')
-			{errors.push({param: 'avatar',msg:notify.ERROR_FILE_LARGE})}	
+			if(errUpload=='123'){errors.push({param: 'thumb',msg:'file k hop le'})}
+         if(errUpload.code=='LIMIT_FILE_SIZE'){errors.push({param: 'thumb',msg:notify.ERROR_FILE_LARGE})}
+			
 		}else if(req.file==undefined && taskCurrent=="add"){
 			errors.push({param: 'avatar',msg:notify.ERROR_FILE_REQUIRE})
 		}

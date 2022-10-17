@@ -86,7 +86,7 @@
 				</thead>
 				<tbody>
 					<% items.forEach( (item, index) => { %>
-						<h3><%= JSON.stringify(item) %></h3>
+						
 						<% var x = item.price? item.price:0;
 						const pricex = x.toLocaleString('en-US', {style : 'currency', currency : 'VND'});
 						 %>

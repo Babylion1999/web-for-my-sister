@@ -69,6 +69,27 @@ router.get('/change-status/:id/:status', async(req, res, next) => {
 	})
 		
 });
+// Change groupacp
+router.get('/change-group_acp/:id/:group_acp', async(req, res, next) => {
+	let currentStatus	= ParamsHelpers.getParam(req.params, 'group_acp', 'yes'); 
+	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 
+	let group_acp			= (currentStatus === "yes") ? "no" : "yes";
+	let data = { group_acp:group_acp,
+		modified:{
+			user_id: 0,
+			user_name: "0",
+			time: Date.now(),
+		},
+
+	};
+	await MainModel.changeStatus(id,data).then((result)=>{
+	req.flash('success', notify.CHANGE_STATUS_SUCCESS, false);
+    res.redirect(linkIndex);
+	})
+		
+});
+
+
 
 
 

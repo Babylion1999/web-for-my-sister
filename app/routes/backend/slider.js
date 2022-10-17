@@ -8,12 +8,11 @@ const notify  		= require(__path_configs + 'notify');
 const systemConfig  = require(__path_configs + 'system');
 const ParamsHelpers = require(__path_helpers + 'params');
 const UtilsHelpers 	= require(__path_helpers + 'utils-slider');
-const pageTitleIndex = 'Item Management';
+const pageTitleIndex = 'Slider Management';
 const pageTitleAdd   = pageTitleIndex + ' - Add';
 const pageTitleEdit  = pageTitleIndex + ' - Edit';
 
 const linkIndex		 = '/' + systemConfig.prefixAdmin + '/slider/';
-
 // List items
 
 /* GET home page. */
@@ -30,17 +29,11 @@ router.get('(/status/:status)?', async function(req, res, next) {
 		currentPage		 : parseInt(ParamsHelpers.getParam(req.query, 'page', 1)),
 		pageRanges		 : 3
 	};
-
-  console.log(req.path);
-
     if(currentStatus !== 'all') objWhere.status = currentStatus;
 	if(keyword !== '') objWhere.name = new RegExp(keyword, 'i');
 
-
-
   await SliderModel.count(objWhere).then( (data) => {
 		pagination.totalItems = data;
-    console.log("data", data);
 	});
 	// mongoose
     SliderModel
@@ -57,7 +50,7 @@ router.get('(/status/:status)?', async function(req, res, next) {
       statusFilter,
       pagination,
     });
-      console.log(title);
+     
     });
   
 

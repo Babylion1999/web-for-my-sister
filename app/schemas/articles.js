@@ -3,6 +3,7 @@ const databaseConfig = require(__path_configs + 'database');
 
 var schema = new mongoose.Schema({ 
     name: String, 
+    slug: String, 
     thumb: String, 
     status: String,
     ordering: Number,
@@ -14,13 +15,13 @@ var schema = new mongoose.Schema({
         name: String,
     },
     created: {
-        item_id: Number,
-        item_name: String,
+        user_id: Number,
+        user_name: String,
         time: Date,
     },
     modified: {
-        item_id: Number,
-        item_name: String,
+        user_id: Number,
+        user_name: String,
         time: Date,
     },
     

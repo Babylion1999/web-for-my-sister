@@ -71,19 +71,17 @@
 						<th class="text-center">Slug</th>
 						<th class="text-center">Status</th>
 						<th class="text-center">Ordering</th>
-                        <th class="text-center">Group ACP</th>
+                        
 						<th class="text-center">Created</th>
 						<th class="text-center">Modified</th>
 						<th class="text-center">Action</th>
-						<th class="text-center">Price</th>
+						
 					</tr>
 				</thead>
 				<tbody>
 					<% items.forEach( (item, index) => { %>
 						
-						<% var x = item.price? item.price:0;
-						const pricex = x.toLocaleString('en-US', {style : 'currency', currency : 'VND'});
-						 %>
+						
 						<tr>
 							<td class="text-center">
 								<div class="custom-control custom-checkbox">
@@ -105,10 +103,7 @@
 							<td class="text-center">
 								<input type="number" value="<%= item.ordering %>" class="text-center ordering">
 							</td>
-                            <td class="text-center">
-                                <%- group_acpHelper(linkPrefix, item.group_acp, item.id) %>
-								
-							</td>
+                            
 							<td  class="text-center">
 								
 
@@ -129,10 +124,7 @@
 								</a>
 							</td>
 							
-							<td class="text-center">
-								<%= pricex %>
-								<!-- "<%- item.price %>" -->
-							</td>
+							
 						</tr>
 						<% }) %>
 					

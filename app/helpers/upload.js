@@ -20,18 +20,13 @@ let uploadImg = (id,savePath) => {
                             fileFilter: function (req, file, cb) {
                                 const extension = path.extname(file.originalname).toLowerCase();
                                 const mimetyp = file.mimetype;
-                                console.log(extension);
-                                if (
-                                    extension !== '.jpg' &
-                                    extension !== '.jpeg' &
-                                    extension !== '.png' &
-                                    mimetyp !== 'image/png' &
-                                    mimetyp !== 'image/jpg' &
-                                    mimetyp !== 'image/jpeg'
-                                ) {
-                                    cb('Vui long upload file hop le');
-                                }
-                                    return cb(null,true)
+                                console.log(file.mimetype);
+                                if (file.mimetype !== 'image/png' && file.mimetype !== 'image/jpg' &&file.mimetype !== 'image/jpeg') {
+                                  req.fileValidationError = 'goes wrong on the mimetype';
+                                  return cb('123', false, new Error('goes wrong on the mimetype'));
+                                 }
+                                 cb(null, true);
+                                
                             },
                         }).single(id);
 

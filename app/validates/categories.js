@@ -6,6 +6,7 @@ const options = {
     ordering: { min: 0, max: 100 },
     status: { value: 'novalue' },
     content: { min: 5, max: 200 },
+    
 }
 
 module.exports = {

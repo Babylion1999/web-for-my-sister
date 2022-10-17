@@ -77,7 +77,8 @@
 							</div>
 						</th>
 						<th class="text-center">#</th>
-						<th class="text-center"><a href="<%= linkPrefix %>/sort/name/desc">Name <i class="fas fa-sort-down"></i></a></th> 
+						<th class="text-center"><a href="<%= linkPrefix %>/sort/name/desc">Name <i class="fas fa-sort-down"></i></a></th>
+						<th class="text-center">Slug</th> 
 						<th class="text-center">Thumb</th>
 						<th class="text-center"><a href="#">Status <i class="fas fa-sort"></i></a></th>
 						<th class="text-center"><a href="#">Special <i class="fas fa-sort"></i></a></th>
@@ -85,13 +86,13 @@
 						<th class="text-center">Group</th>
 						<th class="text-center">Created</th>
 						<!-- <th class="text-center">Modified</th> -->
+						<th class="text-center">Content</th>
 						<th class="text-center">Action</th>
-						<th class="text-center">Price</th>
 					</tr>
 				</thead>
 				<tbody>
 					<% items.forEach( (item, index) => { %>
-						<%= JSON.stringify(item) %>
+						
 						<% var x = item.price? item.price:0;
 						const pricex = x.toLocaleString('en-US', {style : 'currency', currency : 'VND'});
 						 %>
@@ -105,16 +106,21 @@
 							</td>
 							<td class="text-center"><%= index+1 %></td>
 							<td class="text-center"><%- highlightHelper(item.name, '') %></td>
+							<td class="text-center">
+								<%= item.slug %>
+								<!-- "<%- item.price %>" -->
+							</td>
 							<%- imageHelper(pathUpload, item.thumb) %>
-							<td class="text-center position-relative">
+							<td id="status-<%= item.id %>" class="text-center position-relative">
 								<%- statusHelper(linkPrefix, item.status, item.id) %>
 							</td>
-							<td class="text-center position-relative">
+							<td id="special-<%= item.id %>" class="text-center position-relative">
 								<%- specialHelper(linkPrefix, item.special, item.id) %>
 							</td>
 							
-							<td class="text-center">
-								<input type="number" value="<%= item.ordering %>" class="text-center ordering">
+							<td class="text-center position-relative">
+								<input type="number" id="ordering-<%= item.id %>" value="<%= item.ordering %>" class="text-center ordering" style="max-width:50px;" oninput="changeOrdering('<%= item.id %>')">
+								
 							</td>
 							<td class="text-center">
 								<%= item.category.name %>
@@ -129,6 +135,12 @@
 								<%- sourceByHelper(item.modified.user_name,moment(item.modified.time).format(systemConfig.format_long_time)) %>
 								
 							</td> -->
+							
+							
+							<td class="text-center">
+								<%= item.content %>
+								<!-- "<%- item.price %>" -->
+							</td>
 							<td class="text-center">
 								<a href="<%= linkPrefix %>form/<%= item.id %>" class="rounded-circle btn btn-sm btn-info" title="Edit">
 									<i class="fas fa-pencil-alt"></i>
@@ -138,11 +150,6 @@
 									
 									<i class="fas fa-trash-alt"></i>
 								</a>
-							</td>
-							
-							<td class="text-center">
-								<%= pricex %>
-								<!-- "<%- item.price %>" -->
 							</td>
 						</tr>
 						<% }) %>

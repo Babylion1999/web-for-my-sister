@@ -72,12 +72,12 @@
 						<th class="text-center">Created</th>
 						<th class="text-center">Modified</th>
 						<th class="text-center">Action</th>
-						<th class="text-center">Price</th>
+						
 					</tr>
 				</thead>
 				<tbody>
 					<% items.forEach( (item, index) => { %>
-						<h3><%= JSON.stringify(item) %></h3>
+						
 						<% var x = item.price? item.price:0;
 						const pricex = x.toLocaleString('en-US', {style : 'currency', currency : 'VND'});
 						 %>
@@ -119,10 +119,7 @@
 								</a>
 							</td>
 							
-							<td class="text-center">
-								<%= pricex %>
-								<!-- "<%- item.price %>" -->
-							</td>
+							
 						</tr>
 						<% }) %>
 					
