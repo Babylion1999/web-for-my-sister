@@ -1,5 +1,5 @@
 const { options } = require("mongoose");
-
+const ArticlesModel 	= require(__path_schemas + 'articles');
 const MainModel 	= require(__path_schemas + 'categories');
 const StringHelper 	= require(__path_helpers + 'string');
 module.exports = {
@@ -12,6 +12,16 @@ module.exports = {
 		.find(objWhere)
         .skip((pagination.currentPage-1) * pagination.totalItemsPerPage)
 		.limit(pagination.totalItemsPerPage)  
+        
+    },
+    listItemsFrontend:(params = null, options = null)=>{
+        if(options.task=='items-in-menu'){
+            return MainModel
+            .find({status: 'active'})
+            .select('name slug')
+            .limit(10)
+            .sort({ordering:'asc'})
+        };
         
     },
     listItemsSelectBox:()=>{

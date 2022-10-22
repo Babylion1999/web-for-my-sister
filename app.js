@@ -44,7 +44,7 @@ app.use(session({
 ));
 app.use(flash(app, {
    viewName: __path_views_admin + 'elements/notify',
- }));
+}));
  
 app.use(validator({
   customValidators: {

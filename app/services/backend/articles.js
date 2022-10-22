@@ -16,7 +16,7 @@ module.exports = {
             pagination.totalItems = data;
     
         });
-	
+        
         return MainModel
             .find(objWhere)
             .sort(sort)
@@ -25,11 +25,24 @@ module.exports = {
     
     },
     listItemsFrontend:(params = null, options = null)=>{
-        return MainModel
+        
+        if(options.task=='list-artical'){
+            return MainModel
             .find({status: 'active',special:'active'})
             .select('name created category.name thumb')
             .limit(9)
             .sort({ordering:'asc'})
+        }
+        if(options.task=='items-all-articles'){
+            return MainModel
+            .find({status: 'active'})
+            .select('name category.name thumb')
+            .sort({ordering:'asc'})
+        }
+            
+        
+       
+        
     },
     changeStatus:(id,data)=>{
         return MainModel.updateOne({_id: id}, data)
