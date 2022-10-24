@@ -5,69 +5,13 @@
    </head>
 
    <body>
-       
-    <!-- Preloader Start -->
-    <!-- <div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/logo.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- Preloader Start -->
-
-   
         <% include ./elements/header %>
     
 
     <main>
-    <!-- Trending Area Start -->
-    <% if(top_post== true){ %>
-        <% include ./elements/top_post %>
-    <% } %>
-                       
-    
-    <!-- Trending Area End -->
-    <!--   Weekly-News start -->
-    <% if(top_weeklyNews== true){ %>
-        <% include ./elements/top_weekly-news %>
-    <% } %>    
-    <!-- End Weekly-News -->
-   <!-- Whats New Start -->
-    <section class="whats-news-area pt-50 pb-20">
-        <div class="container">
-            <div class="row">
-            <%- body %>
-            <% if(sildebar== true){ %>
-                <% include ./elements/sildebar %>
-            <% } %>  
-            </div>
-        </div>
-    </section>
-    <!-- Whats New End -->
-    <!--   Weekly2-News start -->
-    <% if(bottom_weeklyNews== true){ %>
-        <% include ./elements/bottom_weekly-news %>
-    <% } %>       
-    <!-- End Weekly-News -->
-    <!-- Start Youtube -->
-    <% if(youtubeArea== true){ %>
-        <% include ./elements/youtube-area %>
-    <% } %>  
-    <!-- End Start youtube -->
-    <!--  Recent Articles start -->
-    <% if(recentArticles== true){ %>
-        <% include ./elements/recent-articles %>
-    <% } %>     
-    <!--Recent Articles End -->
-    <!--Start pagination -->
-    <% if(paginationArea== true){ %>
-        <% include ./elements/pagination-area %>
-    <% } %>  
-    <!-- End pagination  -->
+        
+        <%-body %>
+        
     </main>
     
   <% include ./elements/footer %>

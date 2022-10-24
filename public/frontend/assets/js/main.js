@@ -1,3 +1,5 @@
+// Get the container element
+
 (function ($)
   { "use strict"
   

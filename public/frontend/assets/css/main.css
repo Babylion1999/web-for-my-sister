@@ -25,9 +25,15 @@
 
 -------------------------------------------------
 */
+
 /*-------------   Color variabel  --------------*/
 @import url("https://fonts.googleapis.com/css?family=Poppins:100,200,200i,300,400,500,600,700,800,900&display=swap");
 /* line 35, ../../SAIFUL/Running_project/248. Magazine & News/assets/scss/_color.scss */
+
+#navigation ul li .active {
+  border-bottom:3px #FFF solid;
+  }
+
 .top-bg {
   background: #0000;
 }
@@ -8044,3 +8050,4 @@ del {
 }
 
 /*# sourceMappingURL=main.css.map */
+/* my custom */

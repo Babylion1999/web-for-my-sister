@@ -22,12 +22,10 @@ router.get('/', async function(req, res, next) {
   });
   res.render(`${folderView}index`, { 
     layout   : layoutBlog,
-    top_post : true,
-    top_weeklyNews: true,
-    bottom_weeklyNews: true,
-    youtubeArea: true,
-    recentArticles: true,
-    paginationArea: true,
+    
+    
+    
+    servicesSlider: true,
     sildebar:true,
     itemsTopPost,
     itemsCategory,

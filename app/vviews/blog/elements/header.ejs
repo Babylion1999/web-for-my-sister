@@ -3,34 +3,35 @@
     <!-- Header Start -->
        <div class="header-area">
             <div class="main-header ">
-                <div class="header-top black-bg d-none d-md-block">
+                <div class="header-top white-bg d-none d-md-block py-0">
                    <div class="container">
                        <div class="col-xl-12">
                             <div class="row d-flex justify-content-between align-items-center">
                                 <div class="header-info-left">
                                     <ul>     
-                                        <li><img src="frontend/assets/img/icon/header_icon1.png" alt="">34ºc, Sunny </li>
-                                        <li><img src="frontend/assets/img/icon/header_icon1.png" alt="">Tuesday, 18th June, 2019</li>
+                                        <li class="text-dark">Email : Shoestore367gmail.com</li>
                                     </ul>
                                 </div>
                                 <div class="header-info-right">
                                     <ul class="header-social">    
-                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                       <li> <a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                                        <div class="header-button" style=" width: 200px;height:45px; background-color:#263A5A; text-align: center;">
+                                            <a href="tel:0326104536" class="" style="line-height: 45px;">
+                                            <span>HOTLINE: 0326.104.536</span>
+                                          </a>
+                                        </div>
                                     </ul>
                                 </div>
                             </div>
                        </div>
                    </div>
                 </div>
-                <div class="header-mid d-none d-md-block">
+                <div class="header-mid d-none d-md-block py-0">
                    <div class="container">
                         <div class="row d-flex align-items-center">
                             <!-- Logo -->
                             <div class="col-xl-3 col-lg-3 col-md-3">
                                 <div class="logo">
-                                    <a href="index.html"><img src="frontend/assets/img/logo/logo.png" alt=""></a>
+                                    <a href="index.html"><img src="frontend/assets/img/logo/LOGO (3).png" alt=""></a>
                                 </div>
                             </div>
                             <div class="col-xl-9 col-lg-9 col-md-9">
@@ -47,29 +48,27 @@
                             <div class="col-xl-10 col-lg-10 col-md-12 header-flex">
                                 <!-- sticky -->
                                     <div class="sticky-logo">
-                                        <a href="index.html"><img src="frontend/assets/img/logo/logo.png" alt=""></a>
+                                        <a href="index.html"><img src="frontend/assets/img/logo/LOGO (3).png" alt=""></a>
                                     </div>
                                 <!-- Main-menu -->
                                 <div class="main-menu d-none d-md-block">
-                                    <nav>                  
+                                    <nav >                  
                                         <ul id="navigation">    
-                                            <li><a href="/">Home</a></li>
-                                            <li><a href="/category">Category</a>
+                                            <li class="nav-item"><a href="/" class="nav-link" >Trang chủ</a></li>
+                                            <li class="nav-item"><a href="/about" class="nav-link">Giới Thiệu</a></li>
+                                            <li class="nav-item"><a href="/category" class="nav-link dropdown-toggle">Dịch Vụ Phát Tờ Rơi</a>
                                                 <ul class="submenu">
                                                     <% itemsCategory.forEach((category) => { %>
                                                     <li><a href="elements.html"><%= category.name %></a></li>
-                                                    <% })%>
-                                                    
-                                                    
+                                                    <% })%>   
                                                 </ul>
                                             </li>
-                                            <li><a href="/about">About</a></li>
-                                            <li><a href="/latest_news.html">Latest News</a></li>
-                                            <li><a href="/contact.html">Contact</a></li>
-                                            <li><a href="#">Pages</a>
-                                                
-                                            </li>
+                                            <li class="nav-item"><a href="/about" class="nav-link">Dịch Vụ In Ấn</a></li>
+                                            <li class="nav-item"><a href="/latest_news.html" class="nav-link">Treo Băng Rôn</a></li>
+                                            <li class="nav-item"><a href="/contact.html" class="nav-link">Liên Hệ</a></li>
+                                            
                                         </ul>
+                                        
                                     </nav>
                                 </div>
                             </div>             

@@ -36,3 +36,29 @@
 		<!-- Jquery Plugins, main Jquery -->	
         <script src="frontend/assets/js/plugins.js"></script>
         <script src="frontend/assets/js/main.js"></script>
+        <script>
+            $(document).ready(function(){
+                    $('#imgSlider').owlCarousel({
+                loop:true,
+                margin:30,
+                
+                responsiveClass:true,
+                responsive:{
+                    0:{
+                        items:1,
+                        nav:false
+                    },
+                    600:{
+                        items:1,
+                        nav:false,
+                    },
+                    1000:{
+                        items:3,
+                        nav:false,
+                        loop:false
+                    }
+                }
+                    
+            });
+        });// JavaScript Document
+        </script>
