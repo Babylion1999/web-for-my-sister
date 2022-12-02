@@ -1,96 +1,84 @@
 <header>
     
     <!-- Header Start -->
-       <div class="header-area">
-            <div class="main-header ">
-                <div class="header-top white-bg d-none d-md-block py-0">
-                   <div class="container">
-                       <div class="col-xl-12">
-                            <div class="row d-flex justify-content-between align-items-center">
-                                <div class="header-info-left">
-                                    <ul>     
-                                        <li class="text-dark">Email : Shoestore367gmail.com</li>
-                                    </ul>
-                                </div>
-                                <div class="header-info-right">
-                                    <ul class="header-social">    
-                                        <div class="header-button" style=" width: 200px;height:45px; background-color:#263A5A; text-align: center;">
-                                            <a href="tel:0326104536" class="" style="line-height: 45px;">
-                                            <span>HOTLINE: 0326.104.536</span>
-                                          </a>
-                                        </div>
-                                    </ul>
-                                </div>
-                            </div>
-                       </div>
-                   </div>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container"> <a href="/" class="navbar-brand"><img src="/frontend/assets/img/logo/LOGO (3).png"></a>
+          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu"> <i class="navbar-toggler-icon"></i> </button>
+          <div class="navbar-collapse collapse" id="menu">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item"> <a href="/" class="nav-link">Trang chủ</a> </li>
+              <li class="nav-item"> <a href="/gioi-thieu" class="nav-link">Giới thiệu</a> </li>
+              <li class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Bảng giá</a> 
+                    <div class="dropdown-menu">
+                      <a href="#" class="dropdown-item">Nhận diện thương hiệu</a>
+                        <a href="#" class="dropdown-item">Thiết kế Logo</a>
+                      <a href="#" class="dropdown-item">Thiết kế Brochure </a>
+                      <a href="#" class="dropdown-item">thiết kế Catalogue</a>
+                      <!--<div class="dropdown-divider"></div>-->
+                      <a href="#" class="dropdown-item">Thiết kế Profile </a>
+                      <a href="#" class="dropdown-item">Thiết kế Landing Page</a>
+                      <a href="#" class="dropdown-item">Thiết kế Bao Bì Sản Phẩm</a>
+                      <a href="#" class="dropdown-item">Thiết kế hình ảnh quảng cáo</a>
+                      <a href="#" class="dropdown-item">Thiết kế hình ảnh theo tháng</a>
+                      
+                  
+                
                 </div>
-                <div class="header-mid d-none d-md-block py-0">
-                   <div class="container">
-                        <div class="row d-flex align-items-center">
-                            <!-- Logo -->
-                            <div class="col-xl-3 col-lg-3 col-md-3">
-                                <div class="logo">
-                                    <a href="index.html"><img src="frontend/assets/img/logo/LOGO (3).png" alt=""></a>
-                                </div>
-                            </div>
-                            <div class="col-xl-9 col-lg-9 col-md-9">
-                                <div class="header-banner f-right ">
-                                    <img src="frontend/assets/img/hero/header_card.jpg" alt="">
-                                </div>
-                            </div>
-                        </div>
-                   </div>
-                </div>
-               <div class="header-bottom header-sticky">
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col-xl-10 col-lg-10 col-md-12 header-flex">
-                                <!-- sticky -->
-                                    <div class="sticky-logo">
-                                        <a href="index.html"><img src="frontend/assets/img/logo/LOGO (3).png" alt=""></a>
-                                    </div>
-                                <!-- Main-menu -->
-                                <div class="main-menu d-none d-md-block">
-                                    <nav >                  
-                                        <ul id="navigation">    
-                                            <li class="nav-item"><a href="/" class="nav-link" >Trang chủ</a></li>
-                                            <li class="nav-item"><a href="/about" class="nav-link">Giới Thiệu</a></li>
-                                            <li class="nav-item"><a href="/category" class="nav-link dropdown-toggle">Dịch Vụ Phát Tờ Rơi</a>
-                                                <ul class="submenu">
-                                                    <% itemsCategory.forEach((category) => { %>
-                                                    <li><a href="elements.html"><%= category.name %></a></li>
-                                                    <% })%>   
-                                                </ul>
-                                            </li>
-                                            <li class="nav-item"><a href="/about" class="nav-link">Dịch Vụ In Ấn</a></li>
-                                            <li class="nav-item"><a href="/latest_news.html" class="nav-link">Treo Băng Rôn</a></li>
-                                            <li class="nav-item"><a href="/contact.html" class="nav-link">Liên Hệ</a></li>
-                                            
-                                        </ul>
-                                        
-                                    </nav>
-                                </div>
-                            </div>             
-                            <div class="col-xl-2 col-lg-2 col-md-4">
-                                <div class="header-right-btn f-right d-none d-lg-block">
-                                    <i class="fas fa-search special-tag"></i>
-                                    <div class="search-box">
-                                        <form action="#">
-                                            <input type="text" placeholder="Search">
-                                            
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Mobile Menu -->
-                            <div class="col-12">
-                                <div class="mobile_menu d-block d-md-none"></div>
-                            </div>
-                        </div>
-                    </div>
-               </div>
-            </div>
-       </div>
+                </li><!--end dropdown-->
+               <li class="dropdown nav-item">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                  Dịch vụ</a>
+                  <div class="dropdown-menu mega-menu">
+                   <div class="row">
+                      <div class="col-md-6 col-lg-3">
+                       <!--<h5 class="dropdown-header">Miền Bắc</h5>-->
+                          <a href="#" class="dropdown-item">Thiết kế thương hiệu</a>
+                        <a href="#" class="dropdown-item">Thiết kế Logo</a>
+                      <a href="#" class="dropdown-item">Bộ nhận diện thương hiệu </a>
+                      <a href="#" class="dropdown-item">Thương hiệu văn phòng</a>
+                       
+                       </div><!--hết cot 1-->
+                          <div class="col-md-6 col-lg-3">
+                       <!--<h5 class="dropdown-header">Miền Nam</h5>-->
+                          <a href="#" class="dropdown-item">Thiết kế Marketing</a>
+                        <a href="#" class="dropdown-item">Thết kế Brochure</a>
+                      <a href="#" class="dropdown-item">Thiết kế Profile </a>
+                      <a href="#" class="dropdown-item">Thiết kế Catalogue</a>
+                       
+                       </div><!--hết cot 1-->
+                           <div class="col-md-6 col-lg-3">
+                       <!--<h5 class="dropdown-header">Miền Trung</h5>-->
+                          <a href="#" class="dropdown-item">Nhận diện thương hiệu số</a>
+                        <a href="#" class="dropdown-item">Thiết kế LandingPage</a>
+                      <a href="#" class="dropdown-item">Thiết kế Online sales kit</a>
+                      <a href="#" class="dropdown-item">Thiết kế UX/UI</a>
+                       
+                       </div><!--hết cot 1-->
+                       <div class="col-md-6 col-lg-3">
+                           <img src="/frontend/assets/img/logo/sumang.jpg" class="img-fluid">
+                      </div><!--hết cot 1-->
+                      </div>
+                   </div> 
+                </li> <!--end dropdown-->
+              <li class="nav-item"> <a href="/du-an" class="nav-link">Dự án</a> </li>
+              <li class="nav-item"> <a href="/tin-tuc" class="nav-link">Tin tức</a> </li>
+              <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Tin tức</a> 
+                  <div class="dropdown-menu">
+                    <% itemsCategory.forEach((category) => { %>
+                        <a href="/category/<%= category.id %>" class="dropdown-item"><%= category.name %></a>
+                        <% })%>
+                    
+                   
+              </div>
+              </li><!--end dropdown-->
+              <li class="nav-item"> <a href="/lien-he" class="nav-link">Liên hệ</a> </li>
+            </ul>
+            <div class="navbar-text d-flex"> <span class="material-symbols-outlined text-primary">phone_enabled</span> +048999653566 </div>
+          </div>
+        </div>
+      </nav>
         <!-- Header End -->
 </header>

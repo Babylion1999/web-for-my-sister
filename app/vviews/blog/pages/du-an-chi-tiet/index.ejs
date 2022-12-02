@@ -1,0 +1,57 @@
+<% const pathUpload="/backend/adminlte/images/product/"; const linkPage=`/du-an/${idProduct}` ;  %>
+<section id="productDetail" >
+
+    <div class="container story py-5">
+       
+        <div class="row ">
+            <div class="col-md-5 px-5" >
+                <div class="our-story-img">     
+                        <img src="<%= pathUpload + itemsProduct.thumb %>" alt="" class="w-100">
+                            
+                </div>
+            </div>
+
+            <div class="col-md-7">
+                <div class="ourStory_content p-3 ">
+                    <h2><%= itemsProduct.description %></h2>
+                    <%- itemsProduct.content %>
+                    <button type="button" class="btn btn-primary rounded-0 " style="margin-top: 50px">Shop
+                        Now</button>
+                </div>
+            </div>
+
+            
+        </div>
+
+    </div>
+
+</section>
+<section class="du-an mt-3">
+    <div class="section-tittle">
+        <div class="container text-center">
+            <div class="border-tittle"></div>
+            <h3>DỰ ÁN</h3>
+            <h2>Các dự án đã hoàn thiện</h2>
+        </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <% itemsRelate.forEach((item)=>{ %>
+        <div class="col-md-6 col-lg-3">
+          <a href="/du-an/<%= item.id %>">
+            <div class="grid">
+              <figure class="effect-lily"> <img src="<%= pathUpload + item.thumb %>" alt="img12">
+                <figcaption>
+                  <h4 style="font-size: 20px;"><a href="#"><%= item.title %></a></h4>
+                  <p>Thiết kế hệ logo và hệ thống nhận diện thương hiệu Tín Nghĩa</p>
+                  <a href="tintuc.html">View more</a> </figcaption>
+              </figure>
+            </div>
+          </a>
+        </div>
+        <% })%>
+          
+          
+      </div>
+    </div>
+          </section>

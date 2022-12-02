@@ -186,11 +186,14 @@ router.get(('/form(/:id)?'), async(req, res, next) => {
 });
 // SAVE = ADD EDIT
 router.post('/save', async(req, res, next) => {
+	
      uploadThumb(req, res, async function(errUpload) {
 	req.body = JSON.parse(JSON.stringify(req.body));
 	let item = Object.assign(req.body);
     let taskCurrent = (typeof item !== "undefined" && item.id !== "") ? "edit" : "add";
+	
      ValidateArticles.validator(req);
+	
 	let errors = req.validationErrors() !== false ? req.validationErrors() : [];
 	
     if (errUpload) {		

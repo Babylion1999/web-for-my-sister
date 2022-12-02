@@ -1,0 +1,30 @@
+<% const pathUpload="/backend/adminlte/images/product/"  %>
+<section class="du-an">
+    <div class="section-tittle">
+        <div class="container text-center">
+            <div class="border-tittle"></div>
+            <h3>DỰ ÁN</h3>
+            <h2>Các dự án đã hoàn thiện</h2>
+        </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <% itemsProduct.forEach((item)=>{ %>
+        <div class="col-md-6 col-lg-3">
+          <a href="/du-an/<%= item.id %>">
+            <div class="grid">
+              <figure class="effect-lily"> <img src="<%= pathUpload + item.thumb %>" alt="img12">
+                <figcaption>
+                  <h4 style="font-size: 20px;"><a href="#"><%= item.title %></a></h4>
+                  <p><%= item.description %></p>
+                  <a href="tintuc.html">View more</a> </figcaption>
+              </figure>
+            </div>
+          </a>
+        </div>
+        <% })%>
+          
+          
+      </div>
+    </div>
+          </section>

@@ -1,0 +1,56 @@
+<% const pathUpload="/backend/adminlte/images/articles/" ; %>
+<section class="py-5">
+    <div class="section-tittle">
+        <div class="container text-center">
+            <div class="border-tittle"></div>
+            <h3>TIN TỨC</h3>
+            <h2>Tin tức - Sự kiện - Blog</h2>
+        </div>
+    </div>
+    <div class="service">
+        <div class="container">
+            <div class="row ">
+                
+                
+                <% for(let i=0; i < itemsArticle.length-1; i++) { %>
+                    
+                    <div class="col-md-6 col-lg-4 my-3">
+                        <div class="service-item">
+                            <img src="<%= pathUpload + itemsArticle[i].thumb %>" class="w-100 ">
+                            <div class="service-item-content">
+                                <div
+                                    style="background-color: #C48C46; display: inline-block; padding: 5px 20px; position: absolute; top: -20px; left:0;">
+                                    <p class="m-0" style="color: white;"><%= itemsArticle[i].category.name %></p>
+                                </div>
+                                <h5 class="my-3"><a href="/articles/<%= itemsArticle[i].id %>"><%= itemsArticle[i].name %>
+                                    </a></h5>
+    
+                                <p><%= itemsArticle[i].description %>
+                                    </p>
+                                <p><a href="/articles/<%= itemsArticle[i].id %>">Xem thêm</a></p>
+                            </div>
+                        </div>
+                    </div>
+                
+                 <% } %>
+
+
+                <div class="col-md-6 col-lg-4 my-3 d-lg-none">
+                    <div class="service-item">
+                        <img src="<%= pathUpload + itemsArticle[itemsArticle.length-1].thumb %>" class="w-100">
+                        <div class="service-item-content">
+                            <div
+                                style="background-color: #C48C46; display: inline-block; padding: 5px 20px; position: absolute; top: -20px; left:0;">
+                                <p class="m-0" style="color: white;"><%= itemsArticle[itemsArticle.length-1].category.name %></p>
+                            </div>
+                            <h5 class="my-3"><a href="/articles/<%= itemsArticle[itemsArticle.length-1].id %>"><%= itemsArticle[itemsArticle.length-1].name %></a></h5>
+
+                            <p><%= itemsArticle[itemsArticle.length-1].description %></p>
+                            <p><a href="/articles/<%= itemsArticle[itemsArticle.length-1].id %>">Xem thêm</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

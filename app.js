@@ -13,6 +13,10 @@ const moment = require('moment');
 
 const pathConfig = require('./path');
 
+const multipart = require('connect-multiparty');
+const multipartMiddleware = multipart();
+const fs = require('fs');
+
 // Define Path
 global.__base           = __dirname + '/';
 global.__path_app       = __base + pathConfig.folder_app + '/';
@@ -24,6 +28,7 @@ global.__path_schemas   = __path_app + pathConfig.folder_schemas + '/';
 global.__path_services   = __path_app + pathConfig.folder_services + '/';
 global.__path_validates = __path_app + pathConfig.folder_validates + '/';
 global.__path_views     = __path_app + pathConfig.folder_views + '/';
+global.__path_middleware  = __path_app + pathConfig.folder_middleware + '/';
 global.__path_views_admin     = __path_views + pathConfig.folder_module_admin + '/';
 global.__path_views_blog     = __path_views + pathConfig.folder_module_blog + '/';
 
@@ -32,7 +37,7 @@ const systemConfig = require(__path_configs + 'system');
 const databaseConfig = require(__path_configs + 'database');
 
 
-mongoose.connect(`mongodb+srv://${databaseConfig.username}:${databaseConfig.password}@cluster0.huacl.mongodb.net/test`);
+mongoose.connect(`mongodb+srv://${databaseConfig.username}:${databaseConfig.password}@cluster0.huacl.mongodb.net/trang`);
 
 
 var app = express();
@@ -73,6 +78,36 @@ app.locals.moment=moment;
 // Setup router
 app.use(`/${systemConfig.prefixAdmin}`, require(__path_routers + 'backend/index'));
 app.use('/', require(__path_routers + 'frontend/index'));
+
+// upload img ckeditor
+app.post('/upload',multipartMiddleware,(req,res)=>{
+  try {
+    fs.readFile(req.files.upload.path, function (err, data) {
+        var newPath = __dirname + '/public/backend/adminlte/images/content/' + req.files.upload.name;
+        fs.writeFile(newPath, data, function (err) {
+            if (err) console.log({err: err});
+            else {
+                console.log(req.files.upload.originalFilename);
+            //     imgl = '/images/req.files.upload.originalFilename';
+            //     let img = "<script>window.parent.CKEDITOR.tools.callFunction('','"+imgl+"','ok');</script>";
+            //    res.status(201).send(img);
+             
+                let fileName = req.files.upload.name;
+                let url = '/backend/adminlte/images/content/'+fileName;                    
+                let msg = 'Upload successfully';
+                let funcNum = req.query.CKEditorFuncNum;
+                console.log({url,msg,funcNum});
+               
+                res.status(201).send("<script>window.parent.CKEDITOR.tools.callFunction('"+funcNum+"','"+url+"','"+msg+"');</script>");
+            }
+        });
+    });
+   } catch (error) {
+       console.log(error.message);
+   }
+});
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

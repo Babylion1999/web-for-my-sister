@@ -11,12 +11,10 @@ module.exports = {
             categoryItems=item;
             categoryItems.unshift({_id:'allvalue',name:'Choose group'})
         });
-        
         await MainModel.count(objWhere).then( (data) => {
             pagination.totalItems = data;
     
         });
-        
         return MainModel
             .find(objWhere)
             .sort(sort)
@@ -24,7 +22,8 @@ module.exports = {
             .limit(pagination.totalItemsPerPage)
     
     },
-    listItemsFrontend:(params = null, options = null)=>{
+    listItemsFrontend: async(params = null, options = null, limit_options=null,pagination=null, objWhere=null)=>{
+        
         
         if(options.task=='list-artical'){
             return MainModel
@@ -36,14 +35,42 @@ module.exports = {
         if(options.task=='items-all-articles'){
             return MainModel
             .find({status: 'active'})
-            .select('name category.name thumb')
+            .select('name category.name thumb description')
             .sort({ordering:'asc'})
+            .limit(limit_options)
         }
-            
-        
-       
-        
+        if (options.task == 'items-in-category'){
+           
+            if(objWhere.name == undefined){
+                find = {status:'active', 'category.id': params.id}; 
+            }else{
+                find = {status:'active', 'category.id': params.id, name: objWhere.name}
+            };
+            select = 'name created.user_name created.time category.name thumb content description';
+            sort = {'created.time': 'desc'};
+            await MainModel.count(find).then( (data) => {
+                pagination.totalItems = data;
+            }); 
+            return MainModel
+            .find(find).select(select).sort(sort)
+            .skip((pagination.currentPage-1) * pagination.totalItemsPerPage)
+            .limit(pagination.totalItemsPerPage) 
+        } 
+        if (options.task == 'items-news'){
+            select = 'name created.user_name created.time category.name category.id  thumb content';
+            find = {status:'active'};
+            sort = {'created.time': 'desc'};   
+            return MainModel
+            .find(find).select(select).sort(sort).limit(3); 
+        }
     },
+    // -----it does not fix
+    getItemsFrontend:   async (id, options = null) => {
+         await MainModel.findById(id).then((result)=>{return result}).catch((errors)=>{
+            return;
+          });
+    },
+    // -----it does not fix
     changeStatus:(id,data)=>{
         return MainModel.updateOne({_id: id}, data)
     },
@@ -129,7 +156,7 @@ module.exports = {
                 slug: StringHelper.createAlias(item.slug),
 				status: item.status,
                 special: item.special,
-				price: item.price,
+				description: item.description,
 				content: item.content,
                 thumb: item.thumb,
 				modified:{

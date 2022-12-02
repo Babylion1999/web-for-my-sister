@@ -65,10 +65,12 @@ router.get('/change-status/:id/:status', async(req, res, next) => {
 		},
 
 	};
-	await CategoriesModel.changeStatus(id,data).then((result)=>{
-	req.flash('success', notify.CHANGE_STATUS_SUCCESS, false);
-    res.redirect(linkIndex);
+	
+	CategoriesModel.changeStatus(id,data).then((result)=>{
+		// req.flash('success', notify.CHANGE_STATUS_SUCCESS, false);
+		// res.redirect(linkIndex);
 	})
+	res.send({success:true,id:id,status:status})
 		
 });
 
@@ -97,10 +99,13 @@ router.post('/change-ordering', async(req, res, next) => {
 	let orderings 	= req.body.ordering;
 	
 	
-	 CategoriesModel.changeOrdering(orderings,cids,null).then((result)=>{
-		req.flash('success', notify.CHANGE_ORDERING_SUCCESS, false);
-	res.redirect(linkIndex);
-	})
+	
+	CategoriesModel.changeOrdering(orderings,cids,null).then((result)=>{
+		// req.flash('success', notify.CHANGE_ORDERING_SUCCESS, false);
+		// res.redirect(linkIndex);
+	});
+	res.send({success:true,cids:cids,orderings:orderings})
+	
 	
 });
 // Delete
@@ -110,6 +115,7 @@ router.get('/delete/:id', (req, res, next) => {
 		req.flash('success', notify.DELETE_SUCCESS, false);
 		res.redirect(linkIndex);
 	})
+	
 		
 	
 });

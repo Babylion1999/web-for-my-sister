@@ -15,4 +15,5 @@ module.exports = {
     ERROR_FILE_REQUIRE: 'Vui lòng chọn file upload',
     ERROR_FILE_LARGE: 'File quá lớn',
     CHANGE_SPECIAL_SUCCESS:'Cập nhật trạng thái bài viết thành công',
+    ERROR_DESCRIPTION:'Chiều dài từ %d đến %d ký tự',
 };

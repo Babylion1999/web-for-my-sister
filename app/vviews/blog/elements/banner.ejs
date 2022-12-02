@@ -1,0 +1,60 @@
+<% const pathUpload="/backend/adminlte/images/slider/" ; %>
+    <section>
+
+        <section id="slider" style="background: rgba(0,0,0,0.5);">
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                        <% for(let i=1; i < itemsSlider.length; i++) { %>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<%= i %>"
+                        aria-label="Slide <%= i %>"></button>
+                            <% } %>
+                    
+                </div>
+                <div class="carousel-inner layer-gray">
+
+                    <div class="carousel-item active">
+
+                        <img src="<%= pathUpload + itemsSlider[0].thumb %>" class="d-block w-100" alt="...">
+                        <div class="carousel-caption  d-none d-md-block">
+                            <div class="carousel-caption-border d-inline-block ">
+                                <h5>SỐNG ĐÚNG CHUẨN</h5>
+                                <h2 >Nơi tận hưởng<br>hạnh phúc ngập tràn</h2>
+                                <h4>HIỆU QUẢ- CHÍNH TRỰC- CHUYÊN NGHIỆP</h4>
+                                <button type="button" class="btn btn-primary rounded-0">Shop Now</button>
+                            </div>
+                        </div>
+                        <div class="carousel-border"></div>
+
+                    </div>
+
+                    <% for(let i=1; i < itemsSlider.length; i++) { %>
+                        <div class="carousel-item">
+
+                            <img src="<%= pathUpload + itemsSlider[i].thumb %>" class="d-block w-100" alt="...">
+                            <div class="carousel-caption  d-none d-md-block">
+                                <div class="carousel-caption-border d-inline-block ">
+                                    <h5>SỐNG ĐÚNG CHUẨN</h5>
+                                    <h2>Nơi tận hưởng<br>hạnh phúc ngập tràn</h2>
+                                    <h4>HIỆU QUẢ- CHÍNH TRỰC- CHUYÊN NGHIỆP</h4>
+                                    <button type="button" class="btn btn-primary rounded-0">Shop Now</button>
+                                </div>
+                            </div>
+                            <div class="carousel-border"></div>
+
+                        </div>
+                        <% } %>
+
+
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+                        class="visually-hidden">Previous</span> </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span
+                        class="visually-hidden">Next</span> </button>
+            </div>
+        </section>
+
+    </section>

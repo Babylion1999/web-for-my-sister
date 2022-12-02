@@ -15,7 +15,7 @@ let uploadImg = (id,savePath) => {
       
     let upload = multer({ storage: storage,
                             limits:{
-                                fileSize: 1 * 1024 * 1024,
+                                fileSize: 3 * 1024 * 1024,
                             },
                             fileFilter: function (req, file, cb) {
                                 const extension = path.extname(file.originalname).toLowerCase();
@@ -26,7 +26,6 @@ let uploadImg = (id,savePath) => {
                                   return cb('123', false, new Error('goes wrong on the mimetype'));
                                  }
                                  cb(null, true);
-                                
                             },
                         }).single(id);
 

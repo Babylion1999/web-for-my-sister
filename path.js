@@ -11,4 +11,5 @@ module.exports = {
     folder_public     : 'public',
     folder_module_admin     : 'admin',
     folder_module_blog: 'blog',
+    folder_middleware: 'middleware'
 };

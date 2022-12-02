@@ -1,0 +1,77 @@
+<% const pathUpload="/backend/adminlte/images/articles/"  ; %>
+	<% include ./../../helpers/pagination %>
+
+		<div class="page-tilte">
+			<h3 class="text-center">Đồng Hành Trên Hành Trình<br>
+				Đi Đến Sự Thịnh Vượng</h3>
+
+		</div>
+		<div class="container py-4">
+			<div class="row">
+
+
+				<div class="col-md-8">
+                    <div class="section-tittle"><h2><%= itemArticle.name %></h2></div>
+                    <ul class="blog-info-link mt-3 mb-4" style="list-style:none">
+                        <li><a href="#"><i class="fa fa-user"></i> <%= itemArticle.created.user_name %></a></li>
+                        <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
+                     </ul>
+                    <img class="w-100 mb-4" src="<%= pathUpload + itemArticle.thumb %>" alt="">
+					<%- itemArticle.content %>
+                  
+				</div>
+
+				<aside class="col-md-4">
+					
+
+					
+
+
+
+
+					<div class="aside-menu my-3">
+						<h5>Lĩnh vực</h5>
+						<ul class="nav flex-column">
+							<% itemsCategory.forEach((category)=> { %>
+								<li class="nav-item "><a href="/category/<%= category.id %>" class="nav-link ">
+										<%= category.name %>
+									</a></li>
+								<% })%>
+
+
+						</ul>
+					</div>
+					<div class="my-4">
+						<h5>Bài đăng gần đây</h5>
+
+						<% itemsNews.forEach((item)=> { %>
+
+
+							<div class="row py-2 border-bottom">
+								<div class="col-4"><img src="<%= pathUpload + item.thumb %>" class="img-fluid"></div>
+								<div class="col-8"><a href="/articles/<%= item.id %>">
+										<%= item.name %>
+									</a></div>
+							</div>
+							<% })%>
+
+
+
+					</div>
+					<div class="my-4">
+						<h5>Từ khóa</h5>
+						<div class="d-flex flex-wrap">
+							<a href="#" class="bg-primary p-2 m-1">Kiến trúc</a>
+							<a href="#" class="bg-primary p-2 m-1">Kiến trúc</a>
+							<a href="#" class="bg-primary p-2 m-1">Cảnh quan</a>
+							<a href="#" class="bg-primary p-2 m-1">Kiến trúc</a>
+							<a href="#" class="bg-primary p-2 m-1">Môi trường</a>
+							<a href="#" class="bg-primary p-2 m-1">Công trình</a>
+
+						</div>
+
+					</div>
+
+				</aside>
+			</div>
+		</div>

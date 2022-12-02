@@ -9,6 +9,8 @@ router.use('/groups', require('./groups'));
 router.use('/users', require('./users'));
 router.use('/articles', require('./articles'));
 router.use('/categories', require('./categories'));
+router.use('/product', require('./product'));
+router.use('/service', require('./service'));
 
 
 module.exports = router;

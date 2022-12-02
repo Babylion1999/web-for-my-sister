@@ -9,6 +9,7 @@ var schema = new mongoose.Schema({
     ordering: Number,
     price: Number,
     content: String,
+    description: String,
     special: String,
     category:{
         id: String,

@@ -6,9 +6,6 @@ var schema = new mongoose.Schema({
     slug: String,  
     status: String,
     ordering: Number,
-    price: Number,
-    content: String,
-    group_acp: String,
     created: {
         user_id: Number,
         user_name: String,

@@ -3,17 +3,34 @@ $(document).ready(function () {
     var ckbAll = $(".cbAll");
     var fmAdmin = $("#zt-form");
 
-    
-   
+    // DecoupledEditor
+    // .create( document.querySelector( '#id_content' ) )
+    // .then( editor => {
+    //     const toolbarContainer = document.querySelector( '#toolbar-container' );
 
-
-    ClassicEditor
-    .create( document.querySelector( '#id_content' ) )
+    //     toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+    // } )
+    // .catch( error => {
+    //     console.error( error );
+    // } );
    
-    // CKEDITOR
-    if ($('textarea#content_ck').length) {
-        CKEDITOR.replace('content_ck');
-    }
+    //ckeditor 4 full
+    CKEDITOR.replace( 'id_content',{
+       
+            extraPlugins:'filebrowser',
+            filebrowserBrowseUrl:'/list',//upload location
+            filebrowserUploadMethod:'form',
+            filebrowserUploadUrl:'/upload'//route
+     
+    });
+
+    // ClassicEditor
+    // .create( document.querySelector( '#id_content' ) )
+   
+    // // CKEDITOR
+    // if ($('textarea#content_ck').length) {
+    //     CKEDITOR.replace('content_ck');
+    // }
 
     //call active menu
     activeMenu();

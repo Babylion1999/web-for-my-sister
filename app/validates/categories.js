@@ -5,7 +5,7 @@ const options = {
     name: { min: 5, max: 30 },
     ordering: { min: 0, max: 100 },
     status: { value: 'novalue' },
-    content: { min: 5, max: 200 },
+    
     
 }
 
@@ -23,8 +23,6 @@ module.exports = {
         req.checkBody('status', notify.ERROR_STATUS)
             .isNotEqual(options.status.value);
 
-        // CONTENT
-        // req.checkBody('content', util.format(notify.ERROR_NAME, options.content.min, options.content.max) )
-        //     .isLength({ min: options.content.min, max: options.content.max })
+        
     }
 }

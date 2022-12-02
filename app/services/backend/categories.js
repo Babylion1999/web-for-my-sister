@@ -14,12 +14,19 @@ module.exports = {
 		.limit(pagination.totalItemsPerPage)  
         
     },
-    listItemsFrontend:(params = null, options = null)=>{
+    listItemsFrontend:(params = null, options = null,limit_options=null)=>{
         if(options.task=='items-in-menu'){
             return MainModel
             .find({status: 'active'})
             .select('name slug')
-            .limit(10)
+            .limit(limit_options)
+            .sort({ordering:'asc'})
+        };
+        if(options.task=='items-in-category'){
+            return MainModel
+            .find({status: 'active'})
+            .select('name slug')
+            .limit(limit_options)
             .sort({ordering:'asc'})
         };
         
@@ -78,9 +85,6 @@ module.exports = {
 				name: item.name,
                 slug: StringHelper.createAlias(item.slug),
 				status: item.status,
-				price: item.price,
-				content: item.content,
-                group_acp: item.group_acp,
 				modified:{
 					user_id: 0,
 					user_name: "0",
