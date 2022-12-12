@@ -1,0 +1,23 @@
+<% const pathUpload="/backend/adminlte/images/service/"; const linkPage=`/du-an/${idService}` ;  %>
+<section id="productDetail" >
+
+    <div class="container story py-5">
+       
+        <div class="row ">
+            <div class="col-md-5 px-5" >
+                <img src="<%= pathUpload + serviceDetail.thumb %> " class="w-100 ">
+            </div>
+
+            <div class="col-md-7">
+                <div class="ourStory_content p-3 ">
+                    <h2><%= serviceDetail.description %></h2>
+                    <%- serviceDetail.content %>
+                    <a href="/lien-he"><button type="button" class="btn btn-primary rounded-0 " style="margin-top: 50px">Liên Hệ</button></a>
+                </div>
+            </div>
+
+            
+        </div>
+
+    </div>
+</section>

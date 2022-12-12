@@ -27,7 +27,7 @@ module.exports = {
         if(options.task=='items-in-product'){
             return MainModel
             .find({status: 'active'})
-            .select('title description thumb status content')
+            .select('title description thumb0 thumb1 thumb2 status content')
             .sort({ordering:'asc'})
             .limit(limit_options)
         }
@@ -126,6 +126,9 @@ module.exports = {
 				description: item.description,
 				content: item.content,
                 thumb: item.thumb,
+                thumb0: item.thumb0,
+                thumb1: item.thumb1,
+                thumb2: item.thumb2,
 				modified:{
 					user_id: 0,
 					user_name: "0",

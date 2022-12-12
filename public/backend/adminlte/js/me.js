@@ -190,7 +190,25 @@ $(document).ready(function () {
             window.location.pathname =linkRedirect;
     });
     
-   
+    $( "select[name='category']" ).change(function (value) {
+        
+        let id = value.target.getAttribute('data-id')
+        let newCategory = $(this).find(":selected").val()
+        console.log(newCategory);
+        $.ajax({
+            type: "post",
+            url: `/admin/articles/changecategory`,
+            data:{id : id,newCategory : newCategory},
+            dataType: "json",
+            success: function (response) {
+                if(response.success == true){
+                    toastr["success"](notify.CHANGE_CATEGORY_SUCCESS)
+                } else {
+                    toastr["error"](notify.CHANGE_CATEGORY_ERROR)
+                }
+            }
+        });
+    })
     
 
 });
@@ -275,14 +293,37 @@ const changeSpecial = (link) =>{
        
     });
 };
-const changeOrdering = (cid) =>{
+const changeOrdering = (cid,collection) =>{
     let domOrdering= document.getElementById(`ordering-${cid}`);
     domOrdering.classList.add(`alert-ordering-${cid}`);
     let ordering = domOrdering.value;
     $.ajax({
  
         type: "post",
-        url: "admin/articles/change-ordering",
+        url: `admin/${collection}/change-ordering`,
+        dataType:"json", 
+        data:{cid : cid,ordering : ordering},
+        success: function(resolve){
+            $(`.alert-ordering-${cid}`).notify(
+                "Updated",      
+                { position:"top",className:"success" }     
+        );
+        },
+       
+       
+    });
+};
+const changeCategory = (id) =>{
+    
+    let domCategory = document.getElementById(id);
+    
+   
+    console.log(id);
+    return
+    $.ajax({
+ 
+        type: "post",
+        url: `admin/${collection}/change-ordering`,
         dataType:"json", 
         data:{cid : cid,ordering : ordering},
         success: function(resolve){
@@ -295,3 +336,5 @@ const changeOrdering = (cid) =>{
        
     });
 }
+
+

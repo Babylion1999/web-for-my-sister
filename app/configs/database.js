@@ -11,4 +11,5 @@ module.exports = {
     col_categories: 'categories',
     col_product: 'product',
     col_service: 'service',
+    col_settings: 'settings',
 };

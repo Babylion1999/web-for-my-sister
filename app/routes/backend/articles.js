@@ -136,8 +136,8 @@ router.post('/change-ordering', (req, res, next) => {
 	 
 	let cids 		= req.body.cid;
 	let orderings 	= req.body.ordering;
-	console.log(cids);
-	console.log(orderings);
+	
+
 	MainModel.changeOrdering(orderings,cids,null).then((result)=>{
 		// req.flash('success', notify.CHANGE_ORDERING_SUCCESS, false);
 		// res.redirect(linkIndex);
@@ -145,6 +145,23 @@ router.post('/change-ordering', (req, res, next) => {
 	res.send({success:true,cids:cids,orderings:orderings})
 	
 });
+// Change ordering - Multi
+router.post('/changecategory', (req, res, next) => {
+	 
+	let id 		= req.body.id;
+	let newCategory 	= req.body.newCategory;
+	console.log(newCategory);
+	return
+
+	MainModel.changeOrdering(orderings,cids,null).then((result)=>{
+		// req.flash('success', notify.CHANGE_ORDERING_SUCCESS, false);
+		// res.redirect(linkIndex);
+	});
+	res.send({success:true,cids:cids,orderings:orderings})
+	
+});
+
+
 // Delete
 router.get('/delete/:id', (req, res, next) => {
 	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 	
@@ -197,14 +214,17 @@ router.post('/save', async(req, res, next) => {
 	let errors = req.validationErrors() !== false ? req.validationErrors() : [];
 	
     if (errUpload) {		
+		//kiem ra file hop le và kich thuoc file
 		if(errUpload=='123'){errors.push({param: 'thumb',msg:'file k hop le'})}
          if(errUpload.code=='LIMIT_FILE_SIZE'){errors.push({param: 'thumb',msg:notify.ERROR_FILE_LARGE})}
 			
     }else if(req.file==undefined && taskCurrent=="add"){
+		//truong hop add phan tu moi , yeu cau thumb k dc de trong
         errors.push({param: 'thumb',msg:notify.ERROR_FILE_REQUIRE})
     }
 	if(errors.length > 0) { 
         if(req.file!=undefined){
+			// xoa phan tu cu thay phan tu moi
             let path='public/adminlte/images/articles/'+ req.file.filename;
 			fileHelpers.removeImg(path);
         };
@@ -214,6 +234,7 @@ router.post('/save', async(req, res, next) => {
             categoryItems=item;
             categoryItems.unshift({_id:'',name:'Choose group'});     
         });
+		if(taskCurrent==="edit"){item.thumb=item.image_old;}
         res.render(`${folderView}form`, { pageTitle, item, errors,categoryItems});
     }else{
         let massage= (taskCurrent=="edit") ? notify.EDIT_SUCCESS : notify.ADD_SUCCESS;

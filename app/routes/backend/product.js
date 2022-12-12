@@ -16,6 +16,7 @@ const pageTitleAdd   = pageTitleIndex + ' - Add';
 const pageTitleEdit  = pageTitleIndex + ' - Edit';
 const fileHelpers = require(__path_helpers + 'upload');
 const uploadThumb = fileHelpers.uploadImg('thumb','backend/adminlte/images/product')
+const uploadThumbs = fileHelpers.uploadImgs('thumb','backend/adminlte/images/product')
 const linkIndex		 = '/' + systemConfig.prefixAdmin + `/${changeName}/`;
 const notifier = require('node-notifier');
 
@@ -182,25 +183,26 @@ router.get(('/form(/:id)?'), async(req, res, next) => {
 // SAVE = ADD EDIT
 router.post('/save', async(req, res, next) => {
 	
-     uploadThumb(req, res, async function(errUpload) {
+     uploadThumbs(req, res, async function(errUpload) {
+	
+		
 	req.body = JSON.parse(JSON.stringify(req.body));
 	let item = Object.assign(req.body);
     let taskCurrent = (typeof item !== "undefined" && item.id !== "") ? "edit" : "add";
-	
      ValidateProduct.validator(req);
-	
 	let errors = req.validationErrors() !== false ? req.validationErrors() : [];
 	
     if (errUpload) {		
 		if(errUpload=='123'){errors.push({param: 'thumb',msg:'file k hop le'})}
          if(errUpload.code=='LIMIT_FILE_SIZE'){errors.push({param: 'thumb',msg:notify.ERROR_FILE_LARGE})}
+		 if(errUpload.code=='LIMIT_UNEXPECTED_FILE'){errors.push({param: 'thumb',msg:'vui long chon 3 files'})}
 			
-    }else if(req.file==undefined && taskCurrent=="add"){
+    }else if(req.files==[] && taskCurrent=="add"){
         errors.push({param: 'thumb',msg:notify.ERROR_FILE_REQUIRE})
     }
 	if(errors.length > 0) { 
-        if(req.file!=undefined){
-            let path='public/adminlte/images/product/'+ req.file.filename;
+        if(req.files!=undefined){
+            let path='public/adminlte/images/product/'+ req.files.filename;
 			fileHelpers.removeImg(path);
         };
         let categoryItems=[];
@@ -212,14 +214,30 @@ router.post('/save', async(req, res, next) => {
         res.render(`${folderView}form`, { pageTitle, item, errors,categoryItems});
     }else{
         let massage= (taskCurrent=="edit") ? notify.EDIT_SUCCESS : notify.ADD_SUCCESS;
-         if(req.file!=undefined){
-            item.thumb= req.file.filename;
+		
+         if(req.files!=[]){
+			
+			if(req.files[0]!= undefined){item.thumb0= req.files[0].filename;}
+            if(req.files[1]!= undefined){item.thumb1= req.files[1].filename;}
+			if(req.files[2]!= undefined){item.thumb2 = req.files[2].filename;}
+			
+			
+			console.log('req.files 0 la:',req.files[0].filename)
+			
             if(taskCurrent==="edit") 
             {
+				
+				
                  let path= 'public/backend/adminlte/images/product/'+ item.image_old;
+				 let path0= 'public/backend/adminlte/images/product/'+ item.image_old0;
+				 let path1= 'public/backend/adminlte/images/product/'+ item.image_old1;
+				 let path2= 'public/backend/adminlte/images/product/'+ item.image_old2;
 				 if(item.image_old!=''){fileHelpers.removeImg(path);}	
+				 if(item.image_old0!=''){fileHelpers.removeImg(path0);}
+				 if(item.image_old1!=''){fileHelpers.removeImg(path1);}
+				 if(item.image_old2!=''){fileHelpers.removeImg(path2);}
             }
-        }else{item.thumb=undefined;
+        }else{item.thumb0=undefined;item.thumb1=undefined;item.thumb2=undefined;
             if(taskCurrent==="edit"){item.thumb=item.image_old;}
         };
         MainModel.saveItems(item,{task:taskCurrent}).then((result)=>{

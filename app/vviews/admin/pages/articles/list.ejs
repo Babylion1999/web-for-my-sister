@@ -7,6 +7,7 @@
 <% include ./../../helpers/source-by %>
 <% include ./../../helpers/sort %>
 <% include ./../../helpers/sectionbox %> 
+<% include ./../../helpers/section-category %> 
 <% include ./../../helpers/image %>
 
 <% 
@@ -116,11 +117,20 @@
 							</td>
 							
 							<td class="text-center position-relative">
-								<input type="number" id="ordering-<%= item.id %>" value="<%= item.ordering %>" class="text-center ordering" style="max-width:50px;" oninput="changeOrdering('<%= item.id %>')">
+								<input type="number" id="ordering-<%= item.id %>" value="<%= item.ordering %>" class="text-center ordering" style="max-width:50px;" oninput="changeOrdering('<%= item.id %>','articles')">
 								
 							</td>
 							<td class="text-center">
-								<%= item.category.name %>
+								
+								<select id="category" data-id="<%= item.id %>" name="category" class="custom-select custom-select-sm">
+									<% categoryItems.forEach( (value, index) => { %>
+										<% if(value.id == item.category.id){ %>
+											<option value="<%= value.id %>" selected><%= value.name %></option>
+											<% } else{ %>  
+											<option value="<%= value.id %>"><%= value.name %></option>
+										 <% } %>
+									<% }) %>
+								</select>
 							</td>
 							
 							<td  class="text-center">

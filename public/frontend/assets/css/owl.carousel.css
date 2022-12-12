@@ -79,6 +79,7 @@
   .owl-carousel.owl-refresh .owl-item {
     visibility: hidden; }
   .owl-carousel.owl-drag .owl-item {
+    cursor: pointer;
     -ms-touch-action: pan-y;
         touch-action: pan-y;
     -webkit-user-select: none;

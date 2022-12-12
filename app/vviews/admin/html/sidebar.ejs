@@ -5,7 +5,9 @@
         {name: 'Slider', icon:'fa-sliders-h', link: `${systemConfig.prefixAdmin}/slider`},
         {name: 'Groups-Users', icon: 'fa-layer-group',  link: `#` , isChild : true, children:[{name: 'groups', icon: 'fa-users', link: `${systemConfig.prefixAdmin}/groups`},{name: 'users', icon: 'fa-user', link: `${systemConfig.prefixAdmin}/users`}]},
         {name: 'Categories-Articles', icon: 'fa-layer-group',  link: `#` , isChild : true, children:[{name: 'Categories', icon:'fa-folder', link: `${systemConfig.prefixAdmin}/categories`},{name: 'Articles', icon: 'fa-newspaper', link: `${systemConfig.prefixAdmin}/articles`, },]},
-        {name: 'Setting', icon:'fa-wrench', link: `${systemConfig.prefixAdmin}/setting`},
+        {name: 'Product', icon:'fa-tasks', link: `${systemConfig.prefixAdmin}/product`},
+        {name: 'Service', icon:'fa-hand-holding', link: `${systemConfig.prefixAdmin}/service`},
+        {name: 'Settings', icon:'fa-wrench', link: `${systemConfig.prefixAdmin}/settings`},
     ];
     let xhtmlMenu = '';
     arrMenu.forEach(menu => {

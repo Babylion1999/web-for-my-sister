@@ -1,3 +1,4 @@
+<% const pathUpload="/backend/adminlte/images/service/"  %>
 <section id="dichvu">
     <div class="section-tittle">
         <div class="container text-center">
@@ -6,65 +7,26 @@
             <h2>Chuyên nghiệp, nhân văn</h2>
         </div>
     </div>
+    
     <div class="service">
         <div class="container">
             <div class="row ">
+                <% itemsService.forEach((item)=>{ %>
                 <div class="col-md-6 col-lg-4 my-3">
                     <div class="service-item">
-                        <img src="frontend/assets/img/services/service.png " class="w-100 ">
+                        <img src="<%= pathUpload + item.thumb %> " class="w-100 ">
                         <div class="service-item-content">
                             <div class="service-item-symbol align-items-center d-flex justify-content-center">
                                 <img src="frontend/assets/img/services/symbol.png" alt="" class="w-80"></div>
-                            <h5 class="my-3"><a href="baiviet1.html">Bộ nhận diện thương hiệu</a></h5>
+                            <h5 class="my-3"><a href="/dich-vu/<%= item.id %>"><%= item.title %></a></h5>
 
-                            <p>Ứng dụng các công nghệ cao cấp tân tiến nhất thị trường - nổi bật với hệ sinh
-                                thái thông minh toàn diện. </p>
-                            <p><a href="baiviet1.html ">Xem thêm</a></p>
+                            <p><%= item.description %></p>
+                            <p><a href="/dich-vu/<%= item.id %>">Xem thêm</a></p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4 my-3">
-                    <div class="service-item">
-                        <img src="frontend/assets/img/services/service-logo.png" class="w-100">
-                        <div class="service-item-content">
-                            <div class="service-item-symbol align-items-center d-flex justify-content-center">
-                                <img src="frontend/assets/img/services/symbol.png" alt="" class="w-80"></div>
-                            <h5 class="my-3"><a href="baiviet1.html">Thiết kế logo</a></h5>
-
-                            <p>Ứng dụng các công nghệ cao cấp tân tiến nhất thị trường - nổi bật với hệ sinh
-                                thái thông minh toàn diện. </p>
-                            <p><a href="baiviet1.html ">Xem thêm</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 my-3">
-                    <div class="service-item">
-                        <img src="frontend/assets/img/services/service-packing.png" class="w-100">
-                        <div class="service-item-content">
-                            <div class="service-item-symbol align-items-center d-flex justify-content-center">
-                                <img src="frontend/assets/img/services/symbol.png" alt="" class="w-80"></div>
-                            <h5 class="my-3"><a href="baiviet1.html">Thiết kế bao bì sản phẩm</a></h5>
-
-                            <p>Ứng dụng các công nghệ cao cấp tân tiến nhất thị trường - nổi bật với hệ sinh
-                                thái thông minh toàn diện. </p>
-                            <p><a href="baiviet1.html ">Xem thêm</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 my-3 d-lg-none">
-                    <div class="service-item">
-                        <img src="frontend/assets/img/services/service-cv.png" class="w-100">
-                        <div class="service-item-content">
-                            <div class="service-item-symbol align-items-center d-flex justify-content-center">
-                                <img src="frontend/assets/img/services/symbol.png" alt="" class="w-80"></div>
-                            <h5 class="my-3"><a href="baiviet1.html">Thiết kế cv portfolio</a></h5>
-
-                            <p>Ứng dụng các công nghệ cao cấp tân tiến nhất thị trường - nổi bật với hệ sinh
-                                thái thông minh toàn diện. </p>
-                            <p><a href="baiviet1.html ">Xem thêm</a></p>
-                        </div>
-                    </div>
-                </div>
+                <% })%>
+                
             </div>
         </div>
     </div>

@@ -93,6 +93,10 @@ router.post('/change-status/:status', async(req, res, next) => {
 		res.redirect(linkIndex);
 	})
 });
+
+
+
+
 // Change ordering - Multi
 router.post('/change-ordering', async(req, res, next) => {
 	let cids 		= req.body.cid;

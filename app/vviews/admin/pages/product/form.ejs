@@ -67,13 +67,25 @@ const pathUpload ="backend/adminlte/images/product/";
         <div class="form-group row">
             <label for="thumb" class="col-sm-2 col-form-label text-sm-right required">Thumb</label>
             <div class="col-xs-12 col-sm-8">
-                <input type="file" name="thumb" class="form-control form-control-sm" >
+                <input type="file" name="thumb" class="form-control form-control-sm" multiple >
             </div>
         </div>
         <% if(item.id !== undefined && item.id !== ''){ %>
         <div class="form-group row">
             <label for="thumb" class="col-sm-2 col-form-label text-sm-right required">Thumb</label>
             <img src="<%= pathUpload + item.thumb%>" alt="" class="img-thumbnail" width="500">
+        </div>
+        <div class="form-group row">
+            <label for="thumb" class="col-sm-2 col-form-label text-sm-right required">Thumb0</label>
+            <img src="<%= pathUpload + item.thumb0%>" alt="" class="img-thumbnail" width="500">
+        </div>
+        <div class="form-group row">
+            <label for="thumb" class="col-sm-2 col-form-label text-sm-right required">Thumb1</label>
+            <img src="<%= pathUpload + item.thumb1%>" alt="" class="img-thumbnail" width="500">
+        </div>
+        <div class="form-group row">
+            <label for="thumb" class="col-sm-2 col-form-label text-sm-right required">Thumb2</label>
+            <img src="<%= pathUpload + item.thumb2%>" alt="" class="img-thumbnail" width="500">
         </div>
         <% } %>
         
@@ -83,6 +95,9 @@ const pathUpload ="backend/adminlte/images/product/";
         <div class="col-12 col-sm-8 offset-sm-2">
             <input class="form-control" name="id" value="<%= item.id %>" type="hidden" >
             <input class="form-control" name="image_old" value="<%= item.thumb %>" type="hidden" >
+            <input class="form-control" name="image_old0" value="<%= item.thumb0 %>" type="hidden" >
+            <input class="form-control" name="image_old1" value="<%= item.thumb1 %>" type="hidden" >
+            <input class="form-control" name="image_old2" value="<%= item.thumb2 %>" type="hidden" >
             <input class="form-control" name="category_name" value="<%= item.category_name %>" type="hidden" >
             <button type="submit" class="btn btn-sm btn-success mr-1"> Submit</button>
             <a href="<%= linkPrefix %>" class="btn btn-sm btn-danger mr-1"> Cancel</a>

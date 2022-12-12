@@ -3,7 +3,7 @@
     <!-- Header Start -->
     
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container"> <a href="/" class="navbar-brand"><img src="/frontend/assets/img/logo/LOGO (3).png"></a>
+        <div class="container"> <a href="/" class="navbar-brand"><img src="/frontend/assets/img/logo/LOGO (4).png" style="max-height:60px"></a>
           <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu"> <i class="navbar-toggler-icon"></i> </button>
           <div class="navbar-collapse collapse" id="menu">
             <ul class="navbar-nav mx-auto">
@@ -33,27 +33,25 @@
                   <div class="dropdown-menu mega-menu">
                    <div class="row">
                       <div class="col-md-6 col-lg-3">
+                        <% for(let i=0; i < 4; i++) { %>
+                          <a href="/dich-vu/<%= itemsService[i].id %>" class="dropdown-item"><%= itemsService[i].title %></a>
+                          <% } %>
                        <!--<h5 class="dropdown-header">Miền Bắc</h5>-->
-                          <a href="#" class="dropdown-item">Thiết kế thương hiệu</a>
-                        <a href="#" class="dropdown-item">Thiết kế Logo</a>
-                      <a href="#" class="dropdown-item">Bộ nhận diện thương hiệu </a>
-                      <a href="#" class="dropdown-item">Thương hiệu văn phòng</a>
+                          
                        
                        </div><!--hết cot 1-->
                           <div class="col-md-6 col-lg-3">
                        <!--<h5 class="dropdown-header">Miền Nam</h5>-->
-                          <a href="#" class="dropdown-item">Thiết kế Marketing</a>
-                        <a href="#" class="dropdown-item">Thết kế Brochure</a>
-                      <a href="#" class="dropdown-item">Thiết kế Profile </a>
-                      <a href="#" class="dropdown-item">Thiết kế Catalogue</a>
+                       <% for(let i=4; i < 8; i++) { %>
+                        <a href="/dich-vu/<%= itemsService[i].id %>" class="dropdown-item"><%= itemsService[i].title %></a>
+                        <% } %>
                        
                        </div><!--hết cot 1-->
                            <div class="col-md-6 col-lg-3">
                        <!--<h5 class="dropdown-header">Miền Trung</h5>-->
-                          <a href="#" class="dropdown-item">Nhận diện thương hiệu số</a>
-                        <a href="#" class="dropdown-item">Thiết kế LandingPage</a>
-                      <a href="#" class="dropdown-item">Thiết kế Online sales kit</a>
-                      <a href="#" class="dropdown-item">Thiết kế UX/UI</a>
+                       <% for(let i=8; i < itemsService.length; i++) { %>
+                        <a href="/dich-vu/<%= itemsService[i].id %>" class="dropdown-item"><%= itemsService[i].title %></a>
+                        <% } %>
                        
                        </div><!--hết cot 1-->
                        <div class="col-md-6 col-lg-3">
