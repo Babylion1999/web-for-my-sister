@@ -10,7 +10,7 @@ router.use('/du-an', require('./du-an'));
 router.use('/gioi-thieu', require('./gioi-thieu'));
 router.use('/tin-tuc', require('./tin-tuc'));
 router.use('/chuyen-muc', require('./chuyen-muc'));
-router.use('/articles', require('./articles'));
+router.use('/tin-tuc', require('./articles'));
 router.use('/post', require('./post'));
 router.use('/lien-he', require('./lien-he'));
 router.use('/dich-vu', require('./dich-vu'));

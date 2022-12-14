@@ -12,19 +12,25 @@ const ParamsHelpers = require(__path_helpers + 'params');
 
 
 /* GET home page. */
-router.get('/:id', async function(req, res, next) {
+router.get('/:slug', async function(req, res, next) {
   let itemsNews=[];
-  let idArticle 		= ParamsHelpers.getParam(req.params, 'id', null);
-  let itemArticle = await articlesModel.findById(idArticle).then((result)=>{
-    return result
-  }).catch((errors)=>{
-    return;
-  });
-  if(!itemArticle) {
-    res.send('page not fount');
-    return;
-  }
+  // let idArticle 		= ParamsHelpers.getParam(req.params, 'id', null);
+  let slugArticle 		= ParamsHelpers.getParam(req.params, 'slug', null);
+
+  // let itemArticle = await articlesModel.findById(idArticle).then((result)=>{
+  //   return result
+  // }).catch((errors)=>{
+  //   return;
+  // });
+  // if(!itemArticle) {
+  //   res.send('page not fount');
+  //   return;
+  // }
+ let itemArticle = await articlesModel.findOne({slug:slugArticle}).then((result)=>{
+  return result
+ })
  
+
   await ArticlesModel.listItemsFrontend(null, {task: 'items-news'}).then((items)=>{
     itemsNews=items;
   });

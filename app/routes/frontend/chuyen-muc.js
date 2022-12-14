@@ -9,11 +9,11 @@ const folderView	 = __path_views_blog + 'pages/category/';
 const layoutBlog	 = __path_views_blog + 'frontend';
 
 /* GET home page. */
-router.get('(/:slug)?', async function(req, res, next) {
+router.get('(/:id)?', async function(req, res, next) {
   let objWhere	 = {};
   
-  // let idCategory 		= ParamsHelpers.getParam(req.params, 'id', '');
-  let slugCategory 		= ParamsHelpers.getParam(req.params, 'slug', '');
+  let idCategory 		= ParamsHelpers.getParam(req.params, 'id', '');
+  // let slugCategory 		= ParamsHelpers.getParam(req.params, 'slug', '');
   
   
   let keyword		 = ParamsHelpers.getParam(req.query, 'keyword', '');
@@ -21,11 +21,11 @@ router.get('(/:slug)?', async function(req, res, next) {
   let itemsNews=[];
 	let itemsInCategory	= [];
   
- let Categories= await categoriesModel.find({slug: slugCategory }).then((result)=>{
-    return result
-  });
+//  let Categories= await categoriesModel.find({slug: slugCategory }).then((result)=>{
+//     return result
+//   });
   
-  let idCategory= Categories[0].id;
+  // let idCategory= Categories[0].id;
   
   let pagination 	 = {
 		totalItems		 : 1,
@@ -68,7 +68,7 @@ router.get('(/:slug)?', async function(req, res, next) {
     itemsInCategory,
     keyword,
     pagination,
-    slugCategory,
+    idCategory,
   });
 });
 

@@ -35,7 +35,7 @@ module.exports = {
         if(options.task=='items-all-articles'){
             return MainModel
             .find({status: 'active'})
-            .select('name category.name thumb description')
+            .select('name category.name thumb description slug')
             .sort({ordering:'asc'})
             .limit(limit_options)
         }
@@ -46,7 +46,7 @@ module.exports = {
             }else{
                 find = {status:'active', 'category.id': params.id, name: objWhere.name}
             };
-            select = 'name created.user_name created.time category.name thumb content description';
+            select = 'name created.user_name created.time category.name thumb content description slug';
             sort = {'created.time': 'desc'};
             await MainModel.count(find).then( (data) => {
                 pagination.totalItems = data;
@@ -57,7 +57,7 @@ module.exports = {
             .limit(pagination.totalItemsPerPage) 
         } 
         if (options.task == 'items-news'){
-            select = 'name created.user_name created.time category.name category.id  thumb content';
+            select = 'name created.user_name created.time category.name category.id  thumb content slug';
             find = {status:'active'};
             sort = {'created.time': 'desc'};   
             return MainModel

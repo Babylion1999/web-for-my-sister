@@ -27,7 +27,7 @@
 						<h5>Lĩnh vực</h5>
 						<ul class="nav flex-column">
 							<% itemsCategory.forEach((category)=> { %>
-								<li class="nav-item "><a href="/category/<%= category.id %>" class="nav-link ">
+								<li class="nav-item "><a href="/chuyen-muc/<%= category.id %>" class="nav-link ">
 										<%= category.name %>
 									</a></li>
 								<% })%>
@@ -43,7 +43,7 @@
 
 							<div class="row py-2 border-bottom">
 								<div class="col-4"><img src="<%= pathUpload + item.thumb %>" class="img-fluid"></div>
-								<div class="col-8"><a href="/articles/<%= item.id %>">
+								<div class="col-8"><a href="/tin-tuc/<%= item.slug %>">
 										<%= item.name %>
 									</a></div>
 							</div>

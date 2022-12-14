@@ -1,0 +1,117 @@
+<% const pathUpload="/backend/adminlte/images/articles/" ; const linkPage=`/chuyen-muc/${idCategory}` ; %>
+	<% include ./../../helpers/pagination %>
+
+		<div class="page-tilte">
+			<h3 class="text-center">Đồng Hành Trên Hành Trình<br>
+				Đi Đến Sự Thịnh Vượng</h3>
+
+		</div>
+		<div class="container py-4">
+			<div class="row">
+
+
+				<div class="col-md-8">
+					<div class="service">
+						<div class="row">
+							<% itemsInCategory.forEach((item)=>{ %>
+								<div class="col-md-6 my-3">
+									<div class="service-item">
+										<img src="<%= pathUpload + item.thumb %>" class="w-100 ">
+										<div class="service-item-content">
+											<div
+												style="background-color: #C48C46; display: inline-block; padding: 5px 20px; position: absolute; top: -20px; left:0;">
+												<p class="m-0" style="color: white;">
+													<%= item.category.name %>
+												</p>
+											</div>
+											<h5 class="my-3"><a href="/tin-tuc/<%= item.slug %>">
+													<%= item.name %>
+												</a></h5>
+
+											<p>
+												<%= item.description %>
+											</p>
+											<p><a href="/tin-tuc/<%= item.slug %>">Xem thêm</a></p>
+										</div>
+									</div>
+								</div>
+								<% }) %>
+						</div>
+						<div class="pagination-area pb-45 text-center">
+							<div class="container">
+								<div class="row">
+									<div class="col-xl-12">
+										<div class="single-wrap d-flex justify-content-center">
+											<nav aria-label="Page navigation example">
+												<%- paginationHelper(pagination, linkPage, keyword) %>
+											</nav>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<aside class="col-md-4">
+					<form action="" method="GET">
+						<div class="input-group">
+							<input type="text" name="keyword" class="form-control" placeholder="Tìm kiếm" >
+							<button type="submit" class="input-group-text  btn btn-primary">
+								<span class="material-symbols-outlined ">search</span></button>
+
+						</div>
+					</form>
+
+					
+
+
+
+
+					<div class="aside-menu my-3">
+						<h5>Lĩnh vực</h5>
+						<ul class="nav flex-column">
+							<% itemsCategory.forEach((category)=> { %>
+
+								<li class="nav-item "><a href="/chuyen-muc/<%= category.id %>" class="nav-link ">
+										<%= category.name %>
+									</a></li>
+								<% })%>
+
+
+						</ul>
+					</div>
+					<div class="my-4">
+						<h5>Bài đăng gần đây</h5>
+
+						<% itemsNews.forEach((item)=> { %>
+
+
+							<div class="row py-2 border-bottom">
+								<div class="col-4"><img src="<%= pathUpload + item.thumb %>" class="img-fluid"></div>
+								<div class="col-8"><a href="/tin-tuc/<%= item.slug %>">
+										<%= item.name %>
+									</a></div>
+							</div>
+							<% })%>
+
+
+
+					</div>
+					<div class="my-4">
+						<h5>Từ khóa</h5>
+						<div class="d-flex flex-wrap">
+							<a href="#" class="bg-primary p-2 m-1">Kiến trúc</a>
+							<a href="#" class="bg-primary p-2 m-1">Kiến trúc</a>
+							<a href="#" class="bg-primary p-2 m-1">Cảnh quan</a>
+							<a href="#" class="bg-primary p-2 m-1">Kiến trúc</a>
+							<a href="#" class="bg-primary p-2 m-1">Môi trường</a>
+							<a href="#" class="bg-primary p-2 m-1">Công trình</a>
+
+						</div>
+
+					</div>
+
+				</aside>
+			</div>
+		</div>
