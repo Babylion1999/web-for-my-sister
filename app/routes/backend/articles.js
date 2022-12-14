@@ -146,22 +146,46 @@ router.post('/change-ordering', (req, res, next) => {
 	
 });
 // Change ordering - Multi
-router.post('/changecategory', (req, res, next) => {
+router.post('/changecategory', async(req, res, next) => {
 	 
 	let id 		= req.body.id;
 	let newCategory 	= req.body.newCategory;
-	console.log(newCategory);
-	return
+	
+	console.log('newCategory la',newCategory);
+	console.log('id la:', id);
 
-	MainModel.changeOrdering(orderings,cids,null).then((result)=>{
+	let newCategoryName= await CategoriesModel.form(newCategory).then((result)=>{
+		return result.name
+	})
+	
+	
+	MainModel.changeCategory(id,newCategory,newCategoryName,null).then((result)=>{
 		// req.flash('success', notify.CHANGE_ORDERING_SUCCESS, false);
 		// res.redirect(linkIndex);
 	});
-	res.send({success:true,cids:cids,orderings:orderings})
+	res.send({success:true,id:id,newCategory:newCategory,newCategoryName:newCategoryName})
 	
 });
 
-
+// Change ordering - Multi
+router.post('/option', async(req, res, next) => {
+	 
+	let id 		= req.body.id;
+	let field 	= req.body.field;
+	let isCheck = req.body.isCheck;
+	
+	console.log('field la',field);
+	console.log('id la:', id);
+	console.log('isCheck la:', isCheck);
+	
+	
+	
+	MainModel.changeOption(id,field,isCheck,null).then((result)=>{
+		
+	});
+	res.send({success:true,id:id,field:field,isCheck:isCheck})
+	
+});
 // Delete
 router.get('/delete/:id', (req, res, next) => {
 	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 	

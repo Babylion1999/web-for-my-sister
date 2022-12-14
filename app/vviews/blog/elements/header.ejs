@@ -65,12 +65,11 @@
               <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Tin tức</a> 
                   <div class="dropdown-menu">
+                    <a href="/category/tong-hop" class="dropdown-item">TỔNG HỢP</a>
                     <% itemsCategory.forEach((category) => { %>
                         <a href="/category/<%= category.id %>" class="dropdown-item"><%= category.name %></a>
                         <% })%>
-                    
-                   
-              </div>
+                  </div>
               </li><!--end dropdown-->
               <li class="nav-item"> <a href="/lien-he" class="nav-link">Liên hệ</a> </li>
             </ul>

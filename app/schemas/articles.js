@@ -25,6 +25,22 @@ var schema = new mongoose.Schema({
         user_name: String,
         time: Date,
     },
+    slider: {
+        type: Boolean,
+        default: false
+    },
+    toppost: {
+        type: Boolean,
+        default: false
+    },
+    breakingnews: {
+        type: Boolean,
+        default: false
+    },
+    fearture: {
+        type: Boolean,
+        default: false
+    },
     
 });
 

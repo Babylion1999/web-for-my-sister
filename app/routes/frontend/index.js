@@ -9,7 +9,7 @@ router.use('/auth', require('./auth'));
 router.use('/du-an', require('./du-an'));
 router.use('/gioi-thieu', require('./gioi-thieu'));
 router.use('/tin-tuc', require('./tin-tuc'));
-router.use('/category', require('./category'));
+router.use('/chuyen-muc', require('./chuyen-muc'));
 router.use('/articles', require('./articles'));
 router.use('/post', require('./post'));
 router.use('/lien-he', require('./lien-he'));

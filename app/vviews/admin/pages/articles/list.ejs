@@ -9,6 +9,7 @@
 <% include ./../../helpers/sectionbox %> 
 <% include ./../../helpers/section-category %> 
 <% include ./../../helpers/image %>
+<% include ./../../helpers/showoptionbox %>
 
 <% 
 	const collection = "articles";
@@ -84,8 +85,9 @@
 						<th class="text-center"><a href="#">Status <i class="fas fa-sort"></i></a></th>
 						<th class="text-center"><a href="#">Special <i class="fas fa-sort"></i></a></th>
 						<%- sortHelper(collection,'Ordering', 'ordering',sortField, sortType) %>
+						<th class="text-center">Option</th>
 						<th class="text-center">Group</th>
-						<th class="text-center">Created</th>
+						<!-- <th class="text-center">Created</th> -->
 						<!-- <th class="text-center">Modified</th> -->
 						
 						<th class="text-center">Action</th>
@@ -120,29 +122,36 @@
 								<input type="number" id="ordering-<%= item.id %>" value="<%= item.ordering %>" class="text-center ordering" style="max-width:50px;" oninput="changeOrdering('<%= item.id %>','articles')">
 								
 							</td>
+
+							<td class="text-center position-relative">
+                                <div class="option">
+									<%- showOptionBox(item.id, item.slider, item.toppost, item.breakingnews, item.fearture)  %>
+								</div>
+							</td>
+
 							<td class="text-center">
 								
-								<select id="category" data-id="<%= item.id %>" name="category" class="custom-select custom-select-sm">
-									<% categoryItems.forEach( (value, index) => { %>
-										<% if(value.id == item.category.id){ %>
-											<option value="<%= value.id %>" selected><%= value.name %></option>
-											<% } else{ %>  
-											<option value="<%= value.id %>"><%= value.name %></option>
+								<select id="category-<%= item.id %>" data-id="<%= item.id %>" name="category" class="custom-select custom-select-sm" style="position: relative;">
+									<% for(let i=1; i < categoryItems.length; i++) { %>
+										<% if(categoryItems[i].id == item.category.id){ %>
+											<option value="<%= categoryItems[i].id %>" selected><%= categoryItems[i].name %></option>
+											<% } else { %>  
+												
+											<option value="<%= categoryItems[i].id %>"><%= categoryItems[i].name %></option>
 										 <% } %>
-									<% }) %>
+									<% } %>
 								</select>
 							</td>
 							
-							<td  class="text-center">
+							<!-- <td  class="text-center">
 								
 
 								<%- sourceByHelper(item.created.user_name,moment(item.created.time).format(systemConfig.format_long_time)) %>
-							</td>
+							</td> -->
 							<!-- <td  class="text-center">
 								<%- sourceByHelper(item.modified.user_name,moment(item.modified.time).format(systemConfig.format_long_time)) %>
 								
 							</td> -->
-							
 							
 							
 							<td class="text-center">

@@ -99,6 +99,26 @@ module.exports = {
             return MainModel.updateOne({_id: cids}, data);
         };
     },
+    changeCategory:(id,newCategory,newCategoryName,options=null)=>{
+        let data = { 
+            category:{
+                id: newCategory,
+                name: newCategoryName,
+            },
+            modified:{
+                user_id: 0,
+                user_name: "0",
+                time: Date.now(),
+            },
+    
+        };
+        return MainModel.updateOne({_id: id}, data)
+    },
+    changeOption:(id,field,isCheck,options=null)=>{
+        
+        return MainModel.updateOne({_id: id}, {[field]: isCheck})
+
+    },
     delete:  async(id)=>{
         await MainModel.findById(id).then((item)=>{
             let path='public/backend/adminlte/images/articles/'+item.thumb;

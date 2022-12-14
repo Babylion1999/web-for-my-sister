@@ -192,7 +192,9 @@ $(document).ready(function () {
     
     $( "select[name='category']" ).change(function (value) {
         
-        let id = value.target.getAttribute('data-id')
+        let id = value.target.getAttribute('data-id');
+        let domCategory= document.getElementById(`category-${id}`);
+        domCategory.classList.add(`alert-category-${id}`);
         let newCategory = $(this).find(":selected").val()
         console.log(newCategory);
         $.ajax({
@@ -201,14 +203,47 @@ $(document).ready(function () {
             data:{id : id,newCategory : newCategory},
             dataType: "json",
             success: function (response) {
-                if(response.success == true){
-                    toastr["success"](notify.CHANGE_CATEGORY_SUCCESS)
-                } else {
-                    toastr["error"](notify.CHANGE_CATEGORY_ERROR)
-                }
+                $(`.alert-category-${response.id}`).notify(
+                    "Updated",      
+                    { position:"top",className:"success" }     
+            );
             }
         });
-    })
+    });
+
+
+    changeOption = (data, isCheck) => {
+      
+        let dataArr = data.split("-")
+        let id = dataArr[1]
+        let fieldOption = dataArr[0]
+        let domOption= document.getElementById(`${fieldOption}-${id}`);
+        domOption.classList.add(`alert-option-${fieldOption}-${id}`);
+        $.ajax({
+            type: "post",
+            url: `/admin/articles/option`,
+            data: `id=${id}&field=${fieldOption}&isCheck=${isCheck}`,
+            dataType: "json",
+            success: function (response) {
+                $(`.alert-option-${response.field}-${response.id}`).notify(
+                    "Updated",      
+                    { position:"top",className:"success" }     
+            );
+            }
+        });
+    }
+
+    $("div.option input:checkbox").change(function(value) {
+        
+        let data = value.target.getAttribute('id')
+        
+        if(this.checked) {
+            changeOption(data, true)
+        } else{
+            changeOption(data, false)
+        }
+    }); 
+
     
 
 });
