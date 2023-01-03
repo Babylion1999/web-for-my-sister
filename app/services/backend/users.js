@@ -89,6 +89,12 @@ module.exports = {
     form: (id, options=null)=>{
         return UsersModel.findById(id);
     },
+    getItemByUsername: (username, options = null) => {
+        if(options == null) {
+            return UsersModel.find({status:'active', username: username})
+                            .select('username password avatar status group.name')
+        } 
+    },
     saveItems: (item,options=null)=>{
         if(options.task=='add'){
             

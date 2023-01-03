@@ -157,14 +157,14 @@ router.post('/delete', (req, res, next) => {
 router.get(('/form(/:id)?'), async(req, res, next) => {
 	
 	let id		= ParamsHelpers.getParam(req.params, 'id', '');
-	let item	= {name: '', ordering: 0, status: 'novalue', price:0};
+	let item	= {name: '', ordering: 0, status: 'novalue', price:0, username: '', password:''};
 	let errors   = null;
 	let groupItems=[];
 	await GroupsModel.listItemsSelectBox().then((item)=>{
 		groupItems=item;
 		groupItems.unshift({_id:'novalue',name:'Choose group'})
 	});
-	
+	console.log('id',id);
 	
 	if(id === '') { // ADD
 	
@@ -203,7 +203,7 @@ router.post('/save', (req, res, next) => {
 		if(errors.length > 0) { 
 			console.log(req.file);
 			if(req.file!=undefined){
-				let path='public/adminlte/images/'+ req.file.filename;
+				let path='public/adminlte/images/users/'+ req.file.filename;
 				fileHelpers.removeImg(path);	
 			};
 			let groupItems=[];
@@ -224,7 +224,7 @@ router.post('/save', (req, res, next) => {
 				item.avatar= req.file.filename;
 				if(taskCurrent==="edit") 
 				{
-					let path= 'public/adminlte/images/'+ item.image_old;
+					let path= 'public/adminlte/images/users/'+ item.image_old;
 				fileHelpers.removeImg(path);	
 				}
 			}else{item.avatar=undefined;

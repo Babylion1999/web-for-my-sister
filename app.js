@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 const validator = require('express-validator');
+
+const passport = require('passport');
 const session = require('express-session');
 const flash = require('express-flash-notification');
 const expressLayouts = require('express-ejs-layouts');
@@ -45,8 +47,14 @@ app.use(cookieParser());
 app.use(session({
   secret: 'abcnhds',
   resave: false,
-  saveUninitialized: true}
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 5*60*1000
+  }
+}
 ));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(flash(app, {
    viewName: __path_views_admin + 'elements/notify',
 }));

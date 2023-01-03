@@ -2,7 +2,7 @@
 $(document).ready(function () {
     var ckbAll = $(".cbAll");
     var fmAdmin = $("#zt-form");
-
+    
     // DecoupledEditor
     // .create( document.querySelector( '#id_content' ) )
     // .then( editor => {
@@ -348,28 +348,8 @@ const changeOrdering = (cid,collection) =>{
        
     });
 };
-const changeCategory = (id) =>{
-    
-    let domCategory = document.getElementById(id);
-    
-   
-    console.log(id);
-    return
-    $.ajax({
- 
-        type: "post",
-        url: `admin/${collection}/change-ordering`,
-        dataType:"json", 
-        data:{cid : cid,ordering : ordering},
-        success: function(resolve){
-            $(`.alert-ordering-${cid}`).notify(
-                "Updated",      
-                { position:"top",className:"success" }     
-        );
-        },
-       
-       
-    });
-}
+
+
+
 
 

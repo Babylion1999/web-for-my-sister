@@ -1,5 +1,5 @@
 <% 
-	const linkPrefix = systemConfig.prefixBlog + `/auth/login/`;
+    const linkPrefix = systemConfig.prefixAdmin + `/auth/login/`;
 %>
 
 <div class="login-panel panel panel-default">
@@ -7,8 +7,9 @@
         <h3 class="panel-title">Please Sign In</h3>
     </div>
     <div class="panel-body">
+        <% include ./../../elements/errors-login %>
         
-      
+        <%- locals.flash %>
         <form role="form" action="<%= linkPrefix %>" method="POST">
             <fieldset>
                 <div class="form-group">

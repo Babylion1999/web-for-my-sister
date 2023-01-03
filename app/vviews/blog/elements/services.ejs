@@ -1,4 +1,6 @@
 <% const pathUpload="/backend/adminlte/images/service/"  %>
+
+
 <section id="dichvu">
     <div class="section-tittle">
         <div class="container text-center">
@@ -9,24 +11,36 @@
     </div>
     
     <div class="service">
+        
         <div class="container">
-            <div class="row ">
-                <% itemsService.forEach((item)=>{ %>
-                <div class="col-md-6 col-lg-4 my-3">
-                    <div class="service-item">
-                        <img src="<%= pathUpload + item.thumb %> " class="w-100 ">
-                        <div class="service-item-content">
-                            <div class="service-item-symbol align-items-center d-flex justify-content-center">
-                                <img src="frontend/assets/img/services/symbol.png" alt="" class="w-80"></div>
-                            <h5 class="my-3"><a href="/dich-vu/<%= item.id %>"><%= item.title %></a></h5>
-
-                            <p><%= item.description %></p>
-                            <p><a href="/dich-vu/<%= item.id %>">Xem thêm</a></p>
+        
+            <div class="owl-carousel owl-theme text-center py-3 owl-loaded owl-drag" id="banner4">
+                <div class="owl-stage-outer">
+                    <div class="owl-stage"
+                        style="transform: translate3d(-1432px, 0px, 0px); transition: all 0s ease 0s; width: 5012px;">
+                        <% itemsService.forEach((item)=>{ %>
+                        <div class="owl-item " >
+                            
+                            <div class="service-item">
+                                <img src="<%= pathUpload + item.thumb %>" class="w-100 ">
+                                <div class="service-item-content text-start">
+                                    <div class="service-item-symbol align-items-center d-flex justify-content-center">
+                                        <img src="frontend/assets/img/services/symbol.png" alt="" class="w-80"></div>
+                                    <h5 class="my-3"><a href="/dich-vu/<%= item.id %>"><%= item.title %></a></h5>
+        
+                                    <p><%= item.description %></p>
+                                    <p><a href="/dich-vu/<%= item.id %>">Xem thêm</a></p>
+                                </div>
+                            </div>
+                            
                         </div>
+                        <% })%>
+                        
+    
+                        
+                        
                     </div>
-                </div>
-                <% })%>
-                
+                </div>	
             </div>
         </div>
     </div>

@@ -9,14 +9,14 @@
             <ul class="navbar-nav mx-auto">
               <li class="nav-item"> <a href="/" class="nav-link">Trang chủ</a> </li>
               <li class="nav-item"> <a href="/gioi-thieu" class="nav-link">Giới thiệu</a> </li>
-              <li class="nav-item dropdown">
+              <!-- <li class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Bảng giá</a> 
                     <div class="dropdown-menu">
                       <a href="#" class="dropdown-item">Nhận diện thương hiệu</a>
                         <a href="#" class="dropdown-item">Thiết kế Logo</a>
                       <a href="#" class="dropdown-item">Thiết kế Brochure </a>
                       <a href="#" class="dropdown-item">thiết kế Catalogue</a>
-                      <!--<div class="dropdown-divider"></div>-->
+                     
                       <a href="#" class="dropdown-item">Thiết kế Profile </a>
                       <a href="#" class="dropdown-item">Thiết kế Landing Page</a>
                       <a href="#" class="dropdown-item">Thiết kế Bao Bì Sản Phẩm</a>
@@ -26,7 +26,9 @@
                   
                 
                 </div>
-                </li><!--end dropdown-->
+                </li> -->
+                 <!--<div class="dropdown-divider"></div>-->
+                <!--end dropdown-->
                <li class="dropdown nav-item">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                   Dịch vụ</a>
@@ -65,9 +67,9 @@
               <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Tin tức</a> 
                   <div class="dropdown-menu">
-                    <a href="/chuyen-muc/tong-hop" class="dropdown-item">TỔNG HỢP</a>
+                    <!-- <a href="/chuyen-muc/tong-hop" class="dropdown-item">TỔNG HỢP</a> -->
                     <% itemsCategory.forEach((category) => { %>
-                        <a href="/chuyen-muc/<%= category.id %>" class="dropdown-item"><%= category.name %></a>
+                        <a href="/chuyen-muc/<%= category.slug %>" class="dropdown-item"><%= category.name %></a>
                         <% })%>
                   </div>
               </li><!--end dropdown-->

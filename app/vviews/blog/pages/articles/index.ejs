@@ -1,11 +1,13 @@
 <% const pathUpload="/backend/adminlte/images/articles/"  ; %>
 	<% include ./../../helpers/pagination %>
-
-		<div class="page-tilte">
-			<h3 class="text-center">Đồng Hành Trên Hành Trình<br>
-				Đi Đến Sự Thịnh Vượng</h3>
-
-		</div>
+	
+	<section id="du-an-banner">
+		<div class="page-tilte" > 
+		  
+			<h3 class="text-center"><%= itemArticle.category.name%></h3>
+			
+		  </div>
+		</section>
 		<div class="container py-4">
 			<div class="row">
 
@@ -21,13 +23,13 @@
                   
 				</div>
 
-				<aside class="col-md-4">
+				<aside class="col-md-4 ">
 		
 					<div class="aside-menu my-3">
 						<h5>Lĩnh vực</h5>
 						<ul class="nav flex-column">
 							<% itemsCategory.forEach((category)=> { %>
-								<li class="nav-item "><a href="/chuyen-muc/<%= category.id %>" class="nav-link ">
+								<li class="nav-item "><a href="/chuyen-muc/<%= category.slug%>" class="nav-link ">
 										<%= category.name %>
 									</a></li>
 								<% })%>

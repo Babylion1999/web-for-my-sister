@@ -30,7 +30,6 @@ router.get('/:slug', async function(req, res, next) {
   return result
  })
  
-
   await ArticlesModel.listItemsFrontend(null, {task: 'items-news'}).then((items)=>{
     itemsNews=items;
   });

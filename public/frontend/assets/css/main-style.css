@@ -4,6 +4,8 @@ main{ min-height: 500px}
 h5,h6{ font-weight: 900}
 .navbar{
 	background-color: #0D1020;
+	padding-top: 0.25rem;
+	padding-bottom: 0.25rem;
 }
 .navbar.navbar-dark .navbar-text{
 	color: white;
@@ -30,6 +32,7 @@ h5,h6{ font-weight: 900}
 .navbar-dark .navbar-nav .nav-link{
 	color: white;
 }
+
 .mega-menu .dropdown-header{
 	color: #C48C46!important;
 }
@@ -41,11 +44,11 @@ h5,h6{ font-weight: 900}
 }
 .footer-menu .nav-link{ color: white; padding-left: 0}.footer-menu .nav-link:hover{ color: #C48C46}
 footer { font-size: 14px}
-footer #form-email input
+footer input
 {
-	padding-left: 10px; border-radius: 20px 0 0 20px; border: 1px solid #ddd;
+	padding-left: 10px; border-radius: 10px 0 0 10px; border: 1px solid #ddd;
 }
-footer #form-email button{ border-radius: 0 20px 20px 0}
+
 .mega-menu
 { 
 	width: 1000px; 
@@ -61,8 +64,8 @@ footer #form-email button{ border-radius: 0 20px 20px 0}
 	
 }
 
-.page-tilte{ 
-	background: url("../img/banner/bg-blog-title.jpg") no-repeat center top;
+#gioi-thieu-banner .page-tilte{ 
+	background: url("../img/banner/banner_s_1.png") no-repeat center top;
 	min-height: 300px;
 	display: flex; 
 	justify-content: center;
@@ -70,7 +73,29 @@ footer #form-email button{ border-radius: 0 20px 20px 0}
 	text-align: center;
 }
 
-.page-tilte h3{ color: #fff}
+
+#du-an-banner .page-tilte{ 
+	background: url("../img/banner/banner_s_2.png") no-repeat center top;
+	min-height: 300px;
+	display: flex; 
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+#chi-tiet-du-an-banner .page-tilte{ 
+	background: url("../img/banner/banner_s_3.png") no-repeat center top;
+	min-height: 300px;
+	display: flex; 
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+.page-tilte h3{ color: #fff;
+	
+	font-weight: 600;
+	font-family: Montserrat;
+}
+
 aside .aside-menu .nav-link{ text-decoration: none; color: #484141; padding-left: 5px; border-bottom: 1px dotted #ddd}
 
 aside .aside-menu .nav-link:hover{ color:#C48C46}
@@ -128,7 +153,7 @@ aside h5:after{
 }
 @media (min-width: 992px) {
 	.carousel-caption{
-		bottom: 1rem;
+		bottom: 4rem;
 		z-index: 100;
 	}
   .carousel .carousel-caption h5{
@@ -155,7 +180,7 @@ aside h5:after{
 	position: absolute;
 	border: 3px solid #C48C46;
 	width: 340px;
-	height: 280px;
+	height: 320px;
 	top:10%;
 	left:10%;
 	z-index: 1;
@@ -196,7 +221,14 @@ aside h5:after{
 	font-size: 10px;
 }
 }
-
+.lien-he h6{
+	margin-bottom: 16px;
+	font-size: 25px;
+	color: #C48C46;
+}
+.lien-he p{
+	margin-bottom: 10px;
+}
 .ten-years-border{
 	position: absolute;
 	width: 128px;
@@ -306,6 +338,10 @@ aside h5:after{
 	top: -20px;
 	left:20px;
 	z-index: 100;
+}
+.service-item-symbol img{
+	width:80% !important;
+	
 }
 .map-img{
 	background-image: url("../img/logo/Frame 5.png");

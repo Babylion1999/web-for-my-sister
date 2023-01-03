@@ -11,16 +11,20 @@ const layoutBlog	 = __path_views_blog + 'frontend';
 /* GET home page. */
 router.get('/', async function(req, res, next) {
   let itemsProduct=[]; 
+  
+  
   await MainModel.listItemsFrontend(null, {task: 'items-in-product'},8).then((items)=>{
     itemsProduct=items;
     
   });
+  
   res.render(`${folderView}index`, { 
     layout   : layoutBlog,
-    itemsProduct
+    itemsProduct,
   });
   
 });
+
 router.get('/:id', async function(req, res, next) {
   let objWhere	 = {};
   let idProduct 		= ParamsHelpers.getParam(req.params, 'id', '');

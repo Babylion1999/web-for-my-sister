@@ -1,3 +1,8 @@
+<% 
+
+const linkPrefix = systemConfig.prefixAdmin + `/auth/logout/`;
+%>
+
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -17,13 +22,12 @@
                 <!-- User image -->
                 <li class="user-header bg-info">
                     <img src="backend/adminlte/images/default-user.jpg" class="img-circle elevation-2" alt="User Image">
-
                     <p>ZendVN <small>admin</small></p>
                 </li>
                 <!-- Menu Footer-->
                 <li class="user-footer">
                     <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    <a href="#" class="btn btn-default btn-flat float-right">Sign out</a>
+                    <a href="<%= linkPrefix %>" class="btn btn-default btn-flat float-right">Sign out</a>
                 </li>
             </ul>
         </li>

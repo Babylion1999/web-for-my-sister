@@ -12,4 +12,6 @@ module.exports = {
     col_product: 'product',
     col_service: 'service',
     col_settings: 'settings',
+    col_menubar: 'menubars',
+    col_contact: 'contacts',
 };

@@ -1,23 +1,76 @@
-<% const pathUpload="/backend/adminlte/images/service/"; const linkPage=`/du-an/${idService}` ;  %>
-<section id="productDetail" >
+<% const pathUpload="/backend/adminlte/images/service/" ; const linkPage=`/du-an/${idService}` ; const pathUploadArticle="/backend/adminlte/images/articles/"%>
+<section id="du-an-banner">
+	<div class="page-tilte" > 
+	  
+		<h3 class="text-center">CHI TIẾT DỊCH VỤ</h3>
+		
+	  </div>
+	</section>
+<section id="productDetail">
 
-    <div class="container story py-5">
-       
-        <div class="row ">
-            <div class="col-md-5 px-5" >
-                <img src="<%= pathUpload + serviceDetail.thumb %> " class="w-100 ">
+        <div class="container story py-5">
+
+            <div class="row ">
+                <div class="col-md-8">
+                    <div class=""><h2><%= serviceDetail.title %></h2></div>
+                    <ul class="blog-info-link mt-3 mb-4" style="list-style:none">
+                        <li><a href="#"><i class="fa fa-user"></i> <%= serviceDetail.created.user_name %></a></li>
+                        <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
+                     </ul>
+                    <img class="w-100 mb-4" src="<%= pathUpload + serviceDetail.thumb %> " alt="">
+					 <%- serviceDetail.content %>
+                  
+				</div>
+               
+                <aside class="col-md-4">
+		
+					<div class="aside-menu my-3">
+						<h5>Lĩnh vực</h5>
+						<ul class="nav flex-column">
+							<% itemsCategory.forEach((category)=> { %>
+								<li class="nav-item "><a href="/chuyen-muc/<%= category.slug%>" class="nav-link ">
+										<%= category.name %>
+									</a></li>
+								<% })%>
+
+
+						</ul>
+					</div>
+					<div class="my-4">
+						<h5>Bài đăng gần đây</h5>
+
+						<% itemsNews.forEach((item)=> { %>
+
+
+							<div class="row py-2 border-bottom">
+								<div class="col-4"><img src="<%= pathUploadArticle + item.thumb %>" class="img-fluid"></div>
+								<div class="col-8"><a href="/tin-tuc/<%= item.slug %>">
+										<%= item.name %>
+									</a></div>
+							</div>
+							<% })%>
+
+
+
+					</div>
+					<div class="my-4">
+						<h5>Từ khóa</h5>
+						<div class="d-flex flex-wrap">
+							<a href="#" class="bg-primary p-2 m-1">Kiến trúc</a>
+							<a href="#" class="bg-primary p-2 m-1">Kiến trúc</a>
+							<a href="#" class="bg-primary p-2 m-1">Cảnh quan</a>
+							<a href="#" class="bg-primary p-2 m-1">Kiến trúc</a>
+							<a href="#" class="bg-primary p-2 m-1">Môi trường</a>
+							<a href="#" class="bg-primary p-2 m-1">Công trình</a>
+
+						</div>
+
+					</div>
+
+				</aside>
+
+
             </div>
 
-            <div class="col-md-7">
-                <div class="ourStory_content p-3 ">
-                    <h2><%= serviceDetail.description %></h2>
-                    <%- serviceDetail.content %>
-                    <a href="/lien-he"><button type="button" class="btn btn-primary rounded-0 " style="margin-top: 50px">Liên Hệ</button></a>
-                </div>
-            </div>
-
-            
         </div>
-
-    </div>
-</section>
+    </section>

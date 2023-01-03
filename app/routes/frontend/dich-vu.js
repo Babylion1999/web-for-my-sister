@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const changeName = "service";
 const MainModel 	= require(__path_services + `backend/${changeName}`);
+const ArticlesModel 	= require(__path_services + `backend/articles`);
 const serviceModel 	= require(__path_schemas + 'service');
 const ParamsHelpers = require(__path_helpers + 'params');
 const folderView	 = __path_views_blog + 'pages/dich-vu/';
@@ -10,6 +11,7 @@ const layoutBlog	 = __path_views_blog + 'frontend';
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
+  
   let itemsService=[]; 
   await MainModel.listItemsFrontend(null, {task: 'items-in-service'},8).then((items)=>{
     itemsService=items;
@@ -22,6 +24,7 @@ router.get('/', async function(req, res, next) {
   
 });
 router.get('/:id', async function(req, res, next) {
+  let itemsNews=[];
   let objWhere	 = {};
   let idService 		= ParamsHelpers.getParam(req.params, 'id', '');
   
@@ -44,12 +47,15 @@ router.get('/:id', async function(req, res, next) {
   await MainModel.listItemsFrontend(null, {task: 'items-in-service'},4).then((items)=>{
     itemsRelate=items;
   });
-
+  await ArticlesModel.listItemsFrontend(null, {task: 'items-news'}).then((items)=>{
+    itemsNews=items;
+  });
   res.render(`${folderViewDetail}index`, { 
     layout   : layoutBlog,
     serviceDetail,
     idService,
-    itemsRelate
+    itemsRelate,
+    itemsNews
     
   });
   
